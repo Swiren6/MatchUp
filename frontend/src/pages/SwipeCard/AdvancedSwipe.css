@@ -1,0 +1,58 @@
+.advanced-swipe-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .main-swiper {
+    width: 100%;
+    height: 500px;
+  }
+  
+  .profile-card {
+    position: relative;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .profile-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .profile-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+  }
+  
+  .swipe-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .swipe-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .swipe-button.left {
+    background-color: #ff4444;
+    color: white;
+  }
+  
+  .swipe-button.right {
+    background-color: #4CAF50;
+    color: white;
+  }

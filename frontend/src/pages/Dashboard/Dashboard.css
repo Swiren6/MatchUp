@@ -1,0 +1,112 @@
+/* Dashboard.css */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 20px;
+  }
+  
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .logout-btn {
+    background: #ff4444;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .logout-btn:hover {
+    background: #cc0000;
+  }
+  
+  .user-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
+  
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .stat-card h3 {
+    color: #666;
+    margin-top: 0;
+  }
+  
+  .stat-card p {
+    font-size: 2rem;
+    margin: 10px 0 0;
+    color: #3498db;
+  }
+  /* Style de base du bouton */
+.profile-btn {
+    /* Apparence */
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #3498db; /* Bleu MatchUp */
+    color: white;
+    border: none;
+    border-radius: 30px; /* Bords arrondis */
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+    /* Positionnement */
+    margin-top: 15px;
+  }
+  
+  /* Effet au survol */
+  .profile-btn:hover {
+    background-color: #2980b9; /* Bleu plus foncé */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Effet quand on clique */
+  .profile-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Version mobile responsive */
+  @media (max-width: 768px) {
+    .profile-btn {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      width: 100%; /* Pleine largeur sur mobile */
+    }
+  }

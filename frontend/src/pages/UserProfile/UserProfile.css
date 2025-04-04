@@ -1,0 +1,104 @@
+/* src/pages/UserProfile/UserProfile.css */
+.user-profile-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .avatar-container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #3498db;
+    display: block;
+    margin: 0 auto 1rem;
+  }
+  
+  .user-info {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .user-info p {
+    margin: 0.5rem 0;
+  }
+  
+  .cv-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  .cv-link:hover {
+    background: #2980b9;
+  }
+  
+  .loading, .error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+  }
+  /* Styles pour les boutons et champs d'édition */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .edit-button, .save-button, .cancel-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .edit-button {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .save-button {
+    background-color: #2ecc71;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .cancel-button {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .editable-input, .name-input {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-left: 5px;
+  }
+  
+  .field-label {
+    display: inline-block;
+    width: 30px;
+  }
+  
+  .avatar-container, .resume-container {
+    position: relative;
+  }
+  
+  .avatar-container label, .resume-container label {
+    display: block;
+    margin-top: 10px;
+    color: #3498db;
+    text-decoration: underline;
+    cursor: pointer;
+  }
