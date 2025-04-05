@@ -116,4 +116,13 @@ router.post('/upload-cv', upload.single('cv'), async (req, res) => {
   }
 });
 
+// Dans userRoutes.js
+const enhanceProfile = async (bio) => {
+  const response = await openai.completions.create({
+      model: "gpt-3.5-turbo",
+      prompt: `Résume cette bio en 3 compétences clés : ${bio}`
+  });
+  return response.choices[0].text;
+};
+
 module.exports = router;
