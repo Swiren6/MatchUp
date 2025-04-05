@@ -18,4 +18,11 @@ router.post('/like/:userId/:targetId', (req, res) => {
   res.json({ matched });
 });
 
+// Exemple : Score = compétences communes + disponibilité
+router.post('/match', (req, res) => {
+  const { userA, userB } = req.body;
+  const score = calculateBasicMatch(userA, userB);
+  res.json({ score });
+});
+
 module.exports = router;
