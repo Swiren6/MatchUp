@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight, FiLogIn } from 'react-icons/fi';
 
+
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
     fullname: '',
@@ -27,7 +28,8 @@ export default function RegisterPage() {
     setErrorMessage('');
 
     try {
-      const response = await fetch('http://localhost:5000/auth/register', {
+      const response = await fetch(`${process.env.REACT_APP_SITE_URL}/auth/register`, {
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -318,3 +320,4 @@ const styles = {
     marginTop: '20px',
   },
 };
+ 
