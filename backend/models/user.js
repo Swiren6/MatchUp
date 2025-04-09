@@ -7,15 +7,11 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { 
     type: String, 
-    enum: ["admin", "user", "recruteur"],
-    default: "user" 
-  },
+    enum: ["admin", "user","recruteur"],
+     default: "user" },
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  photo: { type: String, default: '/default-avatar.png' }, // URL de la photo de profil
-  cv: { type: String, default: '' } // URL du CV
+  updatedAt: { type: Date, default: Date.now }
 });
 
 const User = mongoose.models.user || mongoose.model('user', userSchema);
-
 module.exports = User;

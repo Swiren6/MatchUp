@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+import './App.css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import LandingPage from "./pages/landing-page/LandingPage";
@@ -11,6 +12,9 @@ import LoginPage from "./pages/Auth/login";
 import RegisterPage from "./pages/Auth/register";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import UserProfile from './pages/UserProfile/UserProfile';
+import UsersPage from './pages/UsersPage';
+import OffersPage from './pages/OffersPage';
+import Navigation from './components/Navigation';
 //import SwipeCard from "./pages/SwipeCard/SwipeCard";
 
 function App() {
@@ -23,7 +27,7 @@ function App() {
   const [msg, setMsg] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/') // l'URL vers ton backend
+    fetch('http://localhost:3000/') // l'URL vers ton backend
       .then(res => res.text()) // .text() car tu envoies juste "hello"
       .then(data => setMsg(data))
       .catch(err => console.error(err));
@@ -41,7 +45,8 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/dashboard" element={<Dashboard user={mockUser} />} />
         <Route path="/profile" element={<UserProfile />} />
-        
+        <Route path="/users" element={<UsersPage />} />
+        <Route path="/offers" element={<OffersPage />} />
       </Routes>
       <Footer />
     </Router>
