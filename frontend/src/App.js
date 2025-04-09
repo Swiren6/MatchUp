@@ -14,7 +14,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import UserProfile from './pages/UserProfile/UserProfile';
 import UsersPage from './pages/UsersPage';
 import OffersPage from './pages/OffersPage';
-import Navigation from './components/Navigation';
+import SwipeComponent from './pages/SwipeCard/SwipeComponent';
+
 //import SwipeCard from "./pages/SwipeCard/SwipeCard";
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/users" element={<UsersPage />} />
         <Route path="/offers" element={<OffersPage />} />
+        <Route path="/swipe" element={<SwipeComponent />} />
       </Routes>
       <Footer />
     </Router>
