@@ -58,8 +58,8 @@ socials:{
 
 likes:[
   {
-    userId:string,
-    liker:string,
+    userId:String,
+    liker:String,
   },
 ],
 
