@@ -1,13 +1,69 @@
 const mongoose = require("mongoose");
 
 const profileSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, unique: true },
-  bio: { type: String },
-  skills: { type: [String] }, // Tableau de compétences
-  location: { type: String },
-  photo: { type: String }, // URL de l'image
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
+  user:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"users",
+
+  },
+
+  title:{
+    type: String,
+  },
+  phone:{
+    type: String,
+  },
+  country:{
+    type: String,
+  },
+  pictures:{
+    type: String,
+  },
+  bio:{
+    type: String,
+  },
+  github:{
+    type: String,
+  },
+  skills:{
+    type: [String],
+  },
+  cvLink:{
+    type: String,
+  },
+  educations:[
+    {
+      from : String,
+      to: String,
+      description: String,
+      degree:String,
+      location: String,
+  },
+],
+  experiences: [
+    {
+      title: String,
+      from : String,
+      to: String,
+      description: String,
+      company:String,
+      location: String,
+  },
+],
+socials:{
+  facebook: String,
+  linkedin: String,
+  twitter: String,
+},
+
+likes:[
+  {
+    userId:string,
+    liker:string,
+  },
+],
+
+
 });
 
-module.exports = mongoose.model("Profile", profileSchema);
+module.exports = mongoose.model("profiles", profileSchema);
