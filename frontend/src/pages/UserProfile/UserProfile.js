@@ -1,197 +1,143 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';  // Pour faire des requêtes HTTP
+import React, { useState } from 'react';
 import './UserProfile.css';
 
-const UserAvatar = ({ photoUrl, name, onPhotoChange }) => (
-  <div className="avatar-container">
-    <img 
-      src={photoUrl} 
-      alt={`Photo de ${name}`} 
-      onError={(e) => { e.target.src = '/default-avatar.png' }} 
-    />
-    {onPhotoChange && (
-      <input 
-        type="file" 
-        accept="image/*" 
-        onChange={onPhotoChange} 
-        style={{ display: 'none' }} 
-        id="avatar-upload" 
-      />
-    )}
-  </div>
-);
-
-const UserResume = ({ cvUrl, onCvChange }) => (
-  <div className="resume-container">
-    <h3>Mon CV</h3>
-    <a href={cvUrl} target="_blank" rel="noopener noreferrer" className="cv-link">
-      Télécharger le CV
-    </a>
-    {onCvChange && (
-      <input 
-        type="file" 
-        accept=".pdf,.doc,.docx" 
-        onChange={onCvChange} 
-        style={{ display: 'none' }} 
-        id="cv-upload" 
-      />
-    )}
-  </div>
-);
-
-const EditableField = ({ label, value, name, onChange, isEditing }) => (
-  <p>
-    <span className="field-label">{label}</span>
-    {isEditing ? (
-      <input
-        type="text"
-        name={name}
-        value={value}
-        onChange={onChange}
-        className="editable-input"
-      />
-    ) : (
-      <span>{value}</span>
-    )}
-  </p>
-);
-
 const UserProfile = () => {
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isEditing, setIsEditing] = useState(false);
-  const [tempData, setTempData] = useState({});
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/api/user/profile'); // Utilisez l'API pour récupérer les données de l'utilisateur
-        setUserData(response.data);
-        setTempData(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Erreur de chargement :", error);
-        setError('Erreur lors du chargement des données');
-        setLoading(false);
+  // Données initiales simulées
+  const [userData] = useState({
+    name: "Jean Dupont",
+    email: "jean.dupont@example.com",
+    phone: "06 12 34 56 78",
+    address: "12 Rue de la République, Paris",
+    photo: "https://randomuser.me/api/portraits/men/32.jpg",
+    cv: "https://example.com/cv.pdf",
+    skills: ["React", "Node.js", "MongoDB", "UI/UX Design"],
+    experience: [
+      {
+        title: "Développeur Full Stack",
+        company: "TechCorp",
+        period: "2020 - Présent"
+      },
+      {
+        title: "Stagiaire en Développement",
+        company: "WebStart",
+        period: "2019 - 2020"
       }
-    };
+    ],
+    education: [
+      {
+        degree: "Master en Informatique",
+        school: "Université de Paris",
+        year: "2019"
+      }
+    ]
+  });
 
-    fetchData();
-  }, []);
+  const [isEditing, setIsEditing] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setTempData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handlePhotoChange = (e) => {
-    if (e.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setTempData(prev => ({ ...prev, photo: event.target.result }));
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
-
-  const handleCvChange = (e) => {
-    if (e.target.files[0]) {
-      setTempData(prev => ({ ...prev, cv: URL.createObjectURL(e.target.files[0]) }));
-    }
-  };
-
-  const handleSave = async () => {
-    try {
-      const response = await axios.put('/api/user/profile', tempData); // Envoyer les données mises à jour
-      setUserData(tempData);
-      setIsEditing(false);
-      setError('');
-      alert('Profil mis à jour avec succès !');
-    } catch (error) {
-      console.error('Erreur de sauvegarde :', error);
-      setError('Erreur lors de la sauvegarde des données');
-    }
-  };
-
-  const handleCancel = () => {
-    setTempData(userData);
-    setIsEditing(false);
-  };
-
-  if (loading) return <div className="loading">Chargement du profil...</div>;
-  if (error) return <div className="error">{error}</div>;
-
-  return (
-    <div className="user-profile-container">
-      <div className="profile-header">
-        <h1>Mon Profil</h1>
-        {!isEditing ? (
-          <button onClick={() => setIsEditing(true)} className="edit-button">
-            Modifier
-          </button>
-        ) : (
-          <div className="edit-buttons">
-            <button onClick={handleSave} className="save-button">
-              Enregistrer
-            </button>
-            <button onClick={handleCancel} className="cancel-button">
-              Annuler
-            </button>
-          </div>
+  // Fonction pour afficher les compétences
+  const renderSkills = () => (
+    <div className="skills-section">
+      <h3>Compétences</h3>
+      <div className="skills-container">
+        {userData.skills.map((skill, index) => (
+          <span key={index} className="skill-tag">{skill}</span>
+        ))}
+        {isEditing && (
+          <input
+            type="text"
+            placeholder="Ajouter une compétence"
+            className="add-skill-input"
+          />
         )}
       </div>
+    </div>
+  );
 
-      <UserAvatar 
-        photoUrl={tempData.photo} 
-        name={tempData.name} 
-        onPhotoChange={isEditing ? handlePhotoChange : null}
-      />
+  // Fonction pour afficher l'expérience professionnelle
+  const renderExperience = () => (
+    <div className="experience-section">
+      <h3>Expérience Professionnelle</h3>
+      {userData.experience.map((exp, index) => (
+        <div key={index} className="experience-item">
+          <h4>{exp.title}</h4>
+          <p>{exp.company} • {exp.period}</p>
+        </div>
+      ))}
+    </div>
+  );
 
-      <div className="user-info">
-        <h2>
-          {isEditing ? (
-            <input
-              type="text"
-              name="name"
-              value={tempData.name}
-              onChange={handleChange}
-              className="name-input"
-            />
-          ) : (
-            tempData.name
-          )}
-        </h2>
-        
-        <EditableField
-          label="📧"
-          value={tempData.email}
-          name="email"
-          onChange={handleChange}
-          isEditing={isEditing}
-        />
-        
-        <EditableField
-          label="📞"
-          value={tempData.phone}
-          name="phone"
-          onChange={handleChange}
-          isEditing={isEditing}
-        />
-        
-        <EditableField
-          label="🏠"
-          value={tempData.address}
-          name="address"
-          onChange={handleChange}
-          isEditing={isEditing}
-        />
+  // Fonction pour afficher la formation
+  const renderEducation = () => (
+    <div className="education-section">
+      <h3>Formation</h3>
+      {userData.education.map((edu, index) => (
+        <div key={index} className="education-item">
+          <h4>{edu.degree}</h4>
+          <p>{edu.school} • {edu.year}</p>
+        </div>
+      ))}
+    </div>
+  );
+
+  return (
+    <div className="profile-container">
+      <div className="profile-header">
+        <h1>Mon Profil Professionnel</h1>
+        <button 
+          onClick={() => setIsEditing(!isEditing)} 
+          className={`edit-button ${isEditing ? 'editing' : ''}`}
+        >
+          {isEditing ? 'Annuler' : 'Modifier le profil'}
+        </button>
       </div>
 
-      <UserResume 
-        cvUrl={tempData.cv} 
-        onCvChange={isEditing ? handleCvChange : null}
-      />
+      <div className="profile-content">
+        <div className="profile-sidebar">
+          <div className="avatar-container">
+            <img 
+              src={userData.photo} 
+              alt={`${userData.name}`} 
+              className="profile-avatar"
+            />
+            {isEditing && (
+              <button className="change-avatar-btn">Changer la photo</button>
+            )}
+          </div>
+
+          <div className="contact-info">
+            <h2>{userData.name}</h2>
+            <p><i className="fas fa-envelope"></i> {userData.email}</p>
+            <p><i className="fas fa-phone"></i> {userData.phone}</p>
+            <p><i className="fas fa-map-marker-alt"></i> {userData.address}</p>
+          </div>
+
+          {renderSkills()}
+        </div>
+
+        <div className="profile-main">
+          <div className="about-section">
+            <h3>À propos</h3>
+            {isEditing ? (
+              <textarea 
+                className="about-textarea"
+                placeholder="Décrivez-vous en quelques mots..."
+                defaultValue="Développeur Full Stack passionné avec 5 ans d'expérience dans la création d'applications web modernes."
+              />
+            ) : (
+              <p>Développeur Full Stack passionné avec 5 ans d'expérience dans la création d'applications web modernes.</p>
+            )}
+          </div>
+
+          {renderExperience()}
+          {renderEducation()}
+
+          {isEditing && (
+            <div className="save-actions">
+              <button className="save-button">Enregistrer les modifications</button>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
