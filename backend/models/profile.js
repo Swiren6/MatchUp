@@ -29,11 +29,13 @@ const profileSchema = new mongoose.Schema({
     },
   ],
 
+
   socials: {
     facebook: String,
     linkedin: String,
     twitter: String,
-  },
+},
+
 
   likes: [
     {
