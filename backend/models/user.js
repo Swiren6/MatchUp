@@ -9,8 +9,7 @@ const userSchema = new mongoose.Schema({
     type: String, 
     enum: ["admin", "user","recruteur"],
      default: "user" },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
+  
 });
 
 const User = mongoose.models.user || mongoose.model('users', userSchema);

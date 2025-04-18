@@ -43,6 +43,88 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
+//liker un profil
+router.put('/like/:id', async (req, res) => {
+ 
+    try {
+        const likeExist = await ProfileModel.find({
+            $and: [
+                {
+                    likes: {
+                        $elemMatch: {
+                            userId: req.params.id,
+                        },
+                    },
+                },
+                {
+                    likes: {
+                        $elemMatch: {
+                            liker: req.user.id,
+                        },
+                    },
+                },
+            ],
+        });
+        
+        if (likeExist.length > 0) {
+          await ProfileModel.findOneAndUpdate(
+              { _id: req.params.id },
+          ),
+          {
+              $pull: {
+                  likes: {
+                      userId: req.params.id,
+                      liker: req.user.id,
+                  },
+              },
+          }
+      } else {
+          await ProfileModel.findOneAndUpdate(
+              { _id: req.params.id },
+              {
+                  $pull: {
+                      likes: {
+                          userId: req.params.id,
+                          liker: req.user.id,
+                      },
+                  },
+              }
+          )
+      }res.status(200).json({message:"succes"});
+    } catch (error) {
+        res.status(500).json(error);
+    }
+;
+});
+
+
+//liker un profil
+router.get('/search', async (req, res) => {
+
+  try {
+    const query = req.query.skills;
+    const data = await ProfileModel.find({
+        skills: {
+            $elemMatch: {
+                $regex: query,
+                $options: "i",
+            },
+        },
+    });
+    res.status(200).json(data);
+} catch (error) {
+    res.status(500).json(error);
+}
+});
+
+
+
+
+
+
+
+
+
 module.exports = router;
 
 
