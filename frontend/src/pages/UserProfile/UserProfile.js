@@ -1,143 +1,76 @@
-import React, { useState } from 'react';
-import './UserProfile.css';
+// UserProfile.js
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Card, CardContent, Typography, Grid, Chip, Button } from '@mui/material';
 
 const UserProfile = () => {
-  // Données initiales simulées
-  const [userData] = useState({
-    name: "Jean Dupont",
-    email: "jean.dupont@example.com",
-    phone: "06 12 34 56 78",
-    address: "12 Rue de la République, Paris",
-    photo: "https://randomuser.me/api/portraits/men/32.jpg",
-    cv: "https://example.com/cv.pdf",
-    skills: ["React", "Node.js", "MongoDB", "UI/UX Design"],
-    experience: [
-      {
-        title: "Développeur Full Stack",
-        company: "TechCorp",
-        period: "2020 - Présent"
-      },
-      {
-        title: "Stagiaire en Développement",
-        company: "WebStart",
-        period: "2019 - 2020"
+  const { userId } = useParams(); // Récupère l'ID de l'utilisateur dans l'URL
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`/api/user/${userId}`);
+        const data = await response.json();
+        
+        if (response.ok) {
+          setUserData(data);
+        } else {
+          console.error(data.error);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
       }
-    ],
-    education: [
-      {
-        degree: "Master en Informatique",
-        school: "Université de Paris",
-        year: "2019"
-      }
-    ]
-  });
+    };
 
-  const [isEditing, setIsEditing] = useState(false);
+    fetchUserData();
+  }, [userId]);
 
-  // Fonction pour afficher les compétences
-  const renderSkills = () => (
-    <div className="skills-section">
-      <h3>Compétences</h3>
-      <div className="skills-container">
-        {userData.skills.map((skill, index) => (
-          <span key={index} className="skill-tag">{skill}</span>
-        ))}
-        {isEditing && (
-          <input
-            type="text"
-            placeholder="Ajouter une compétence"
-            className="add-skill-input"
-          />
-        )}
-      </div>
-    </div>
-  );
+  if (loading) {
+    return <Typography>Loading...</Typography>;
+  }
 
-  // Fonction pour afficher l'expérience professionnelle
-  const renderExperience = () => (
-    <div className="experience-section">
-      <h3>Expérience Professionnelle</h3>
-      {userData.experience.map((exp, index) => (
-        <div key={index} className="experience-item">
-          <h4>{exp.title}</h4>
-          <p>{exp.company} • {exp.period}</p>
-        </div>
-      ))}
-    </div>
-  );
-
-  // Fonction pour afficher la formation
-  const renderEducation = () => (
-    <div className="education-section">
-      <h3>Formation</h3>
-      {userData.education.map((edu, index) => (
-        <div key={index} className="education-item">
-          <h4>{edu.degree}</h4>
-          <p>{edu.school} • {edu.year}</p>
-        </div>
-      ))}
-    </div>
-  );
+  if (!userData) {
+    return <Typography>Profile not found.</Typography>;
+  }
 
   return (
-    <div className="profile-container">
-      <div className="profile-header">
-        <h1>Mon Profil Professionnel</h1>
-        <button 
-          onClick={() => setIsEditing(!isEditing)} 
-          className={`edit-button ${isEditing ? 'editing' : ''}`}
-        >
-          {isEditing ? 'Annuler' : 'Modifier le profil'}
-        </button>
-      </div>
+    <div style={{ padding: '20px' }}>
+      <Typography variant="h4" gutterBottom>
+        Profil de {userData.name}
+      </Typography>
+      <Typography variant="h6">Email: {userData.email}</Typography>
 
-      <div className="profile-content">
-        <div className="profile-sidebar">
-          <div className="avatar-container">
-            <img 
-              src={userData.photo} 
-              alt={`${userData.name}`} 
-              className="profile-avatar"
-            />
-            {isEditing && (
-              <button className="change-avatar-btn">Changer la photo</button>
-            )}
-          </div>
-
-          <div className="contact-info">
-            <h2>{userData.name}</h2>
-            <p><i className="fas fa-envelope"></i> {userData.email}</p>
-            <p><i className="fas fa-phone"></i> {userData.phone}</p>
-            <p><i className="fas fa-map-marker-alt"></i> {userData.address}</p>
-          </div>
-
-          {renderSkills()}
-        </div>
-
-        <div className="profile-main">
-          <div className="about-section">
-            <h3>À propos</h3>
-            {isEditing ? (
-              <textarea 
-                className="about-textarea"
-                placeholder="Décrivez-vous en quelques mots..."
-                defaultValue="Développeur Full Stack passionné avec 5 ans d'expérience dans la création d'applications web modernes."
-              />
-            ) : (
-              <p>Développeur Full Stack passionné avec 5 ans d'expérience dans la création d'applications web modernes.</p>
-            )}
-          </div>
-
-          {renderExperience()}
-          {renderEducation()}
-
-          {isEditing && (
-            <div className="save-actions">
-              <button className="save-button">Enregistrer les modifications</button>
-            </div>
-          )}
-        </div>
-      </div>
+      <Typography variant="h5" sx={{ mt: 3 }}>
+        Offres postulées
+      </Typography>
+      <Grid container spacing={3}>
+        {userData.appliedOffers.length === 0 ? (
+          <Typography>Aucune offre postulée</Typography>
+        ) : (
+          userData.appliedOffers.map((offer) => (
+            <Grid item xs={12} sm={6} md={4} key={offer._id}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h5">{offer.title}</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Budget: {offer.budget}
+                  </Typography>
+                  <Typography variant="body2">{offer.description}</Typography>
+                  <div style={{ marginTop: '10px' }}>
+                    {offer.skills.map((skill, index) => (
+                      <Chip key={index} label={skill} size="small" sx={{ mr: 1, mt: 1 }} />
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))
+        )}
+      </Grid>
     </div>
   );
 };

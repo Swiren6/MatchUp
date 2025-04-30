@@ -1,4 +1,3 @@
-// Pas besoin de mongoose ici si tu ne sauvegardes pas encore dans MongoDB
 const matchs = new Map(); // { userId: [targetId, ...] }
 
 function checkForMatch(userId, targetId) {

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 const profileSchema = new mongoose.Schema({
   bio: { type: String },
   skills: { type: [String] }, // Tableau de compétences

@@ -1,80 +1,46 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cors = require('cors');
-const path = require('path');
-const bodyParser = require("body-parser");
+const cors = require("cors");
 
-
-const jobRoutes = require("./routes/jobRoutes");
-const userRoutes = require("./routes/userRoutes");
-const matchRoutes = require("./routes/matchRoutes");
-const messageRoutes = require("./routes/messageRoutes");
-const profileRoutes = require("./routes/profileRoutes");
-const authRoutes = require("./routes/auth");
-
-
+// Config dotenv
 dotenv.config();
+
+// Import des routes
+const userRoutes = require("./routes/userRoutes");
+const signupRoutes = require("./routes/signup");
+const signinRoutes = require("./routes/signin");
+
 const app = express();
-app.use(express.json());//beche ya9ra les requests en format json
-app.use(cors());
-app.use("/auth", authRoutes);//beche ykhdem el auth routes
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));//beche ykhdem el uploads folder
-app.use(bodyParser.json());
 
+// Middlewares
+app.use(express.json()); // Pour lire les données JSON
+app.use(express.static("public")); // Pour servir des fichiers statiques (ex: images, uploads)
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
+// Routes API
+app.use("/api/users", userRoutes);
+app.use("/api/auth", signupRoutes);
+app.use("/api/auth", signinRoutes);
 
-
-
-//Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-
-  .then(() => console.log("✅ Connecté à MongoDB"))
-  .catch(err => console.error(err));
-  app.use("/users", userRoutes);//activer les routes users 
-  app.use("/jobs", jobRoutes);//activer les routes jobs
-  app.use("/matches", matchRoutes);//activer les routes matches
-  app.use("/messages", messageRoutes);//activer les routes messages
-  app.use("/profiles", profileRoutes);//activer les routes profiles
-  app.use("/auth", authRoutes);
-  // Routes IA
-app.post('/api/ai/match', async (req, res) => {
-  // Implémentez votre algorithme de matching ici
-  const { skills } = req.body;
-  
-  // Exemple simplifié
-  const matches = [
-    { name: "Projet X", compatibility: 0.85 },
-    { name: "Projet Y", compatibility: 0.72 }
-  ];
-  
-  res.json({ matches });
+// Route de test
+app.get("/", (req, res) => {
+  res.send("👋 Bienvenue sur l'API backend de MatchUp !");
 });
 
-app.post('/api/ai/chat', async (req, res) => {
-  // Intégration avec OpenAI ou autre service IA
-  const { message } = req.body;
-  
-  // Réponse simulée
-  const replies = [
-    "Je peux vous aider à trouver des collaborations!",
-    "D'après votre profil, je recommande...",
-    "Voici 3 projets qui correspondent à vos compétences:"
-  ];
-  
-  res.json({ 
-    reply: replies[Math.floor(Math.random() * replies.length)] 
-  });
+// Connexion à MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log("✅ Connecté à MongoDB"))
+.catch(err => {
+  console.error("❌ Erreur de connexion MongoDB :", err.message);
+  process.exit(1);
 });
 
-
-
-
-  
-// Utilisation des routes d'authentification
-app.use('/api/auth', authRoutes);
-// machi el serveur
-const PORT = process.env.PORT || 3000;
+// Démarrage du serveur
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`✅Serveur démarré sur le port ${PORT}`);
+  console.log(`🚀 Serveur démarré sur le port ${PORT}`);
 });
