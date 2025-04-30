@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
+
   name: {
     type: String,
     required: true
@@ -23,6 +24,7 @@ const userSchema = new mongoose.Schema({
     enum: ["freelancer", "recruiter", "admin"],
     default: "freelancer"
   }
+
 });
 
 module.exports = mongoose.model("User", userSchema);

@@ -2,69 +2,69 @@ const mongoose = require("mongoose");
 
 
 const profileSchema = new mongoose.Schema({
-  user:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"users",
+  bio: { type: String },
+  skills: { type: [String] }, // Tableau de compétences
+  location: { type: String },
+  photo: { type: String }, // URL de l'image
+  github: { type: String },
+  cvLink: { type: String },
 
-  },
-
-  title:{
-    type: String,
-  },
-  phone:{
-    type: String,
-  },
-  country:{
-    type: String,
-  },
-  pictures:{
-    type: String,
-  },
-  bio:{
-    type: String,
-  },
-  github:{
-    type: String,
-  },
-  skills:{
-    type: [String],
-  },
-  cvLink:{
-    type: String,
-  },
-  educations:[
+  educations: [
     {
-      from : String,
+      from: String,
       to: String,
       description: String,
-      degree:String,
+      degree: String,
       location: String,
-  },
-],
+    },
+  ],
+
   experiences: [
     {
       title: String,
-      from : String,
+      from: String,
       to: String,
       description: String,
-      company:String,
+      company: String,
       location: String,
-  },
-],
-socials:{
-  facebook: String,
-  linkedin: String,
-  twitter: String,
+    },
+  ],
+
+
+  socials: {
+    facebook: String,
+    linkedin: String,
+    twitter: String,
 },
 
-likes:[
-  {
-    userId:String,
-    liker:String,
+
+  likes: [
+    {
+      userId: String,
+      liker: String,
+    },
+  ],
+
+  matches: [
+    {
+      userId: String,
+      matched: String,
+    },
+  ],
+
+  messages: [
+    {
+      userId: String,
+      message: String,
+    },
+  ],
+
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
   },
-],
-
-
 });
 
-module.exports = mongoose.model("profiles", profileSchema);
+const Profile = mongoose.models.profile || mongoose.model("profiles", profileSchema);
+module.exports = Profile;
