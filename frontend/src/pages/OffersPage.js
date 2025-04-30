@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Card, CardContent, Typography, Grid, Chip, Button, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar } from '@mui/material';
+import { Card, CardContent, Typography, Grid, Chip, Button } from '@mui/material';
 import { Work as WorkIcon } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
-// Déclaration des données des offres
+// Données des offres
 const offers = [
   {
     id: 1,
@@ -31,28 +31,7 @@ const offers = [
 ];
 
 const OffersPage = () => {
-  const [selectedOffer, setSelectedOffer] = useState(null);
-  const [appliedOffers, setAppliedOffers] = useState([]);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [openDialog, setOpenDialog] = useState(false);
-
-  // Handle apply button click
-  const handleApply = () => {
-    setAppliedOffers((prev) => [...prev, selectedOffer.id]); // Add the offerId to the appliedOffers array
-    setSnackbarMessage('Vous avez postulé avec succès!');
-    setOpenSnackbar(true);
-    setOpenDialog(false); // Close the dialog after applying
-  };
-
-  const handleOpenDialog = (offer) => {
-    setSelectedOffer(offer); // Set the selected offer data
-    setOpenDialog(true); // Open the dialog
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false); // Close the dialog without applying
-  };
+  const navigate = useNavigate();
 
   return (
     <div style={{ padding: '20px' }}>
@@ -82,10 +61,9 @@ const OffersPage = () => {
                   variant="contained" 
                   size="small" 
                   sx={{ mt: 1 }}
-                  disabled={appliedOffers.includes(offer.id)} // Disable if already applied
-                  onClick={() => handleOpenDialog(offer)} // Open the dialog with the offer's details
+                  onClick={() => navigate(`/apply/${offer.id}`)}  // Vérifie si la route existe
                 >
-                  {appliedOffers.includes(offer.id) ? 'Postulé' : 'Postuler'}
+                  Postuler
                 </Button>
                 <Chip 
                   label={offer.status} 
@@ -98,45 +76,11 @@ const OffersPage = () => {
           </Grid>
         ))}
       </Grid>
-
-      {/* Snackbar to show application status */}
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={3000}
-        onClose={() => setOpenSnackbar(false)}
-        message={snackbarMessage}
-      />
-
-      {/* Dialog (Modal) to show offer details */}
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>{selectedOffer?.title}</DialogTitle>
-        <DialogContent>
-          <Typography variant="body1"><strong>Description:</strong> {selectedOffer?.description}</Typography>
-          <Typography variant="body1"><strong>Budget:</strong> {selectedOffer?.budget}</Typography>
-          <Typography variant="body1"><strong>Compétences requises:</strong></Typography>
-          <div style={{ margin: '10px 0' }}>
-            {selectedOffer?.skills.map((skill, index) => (
-              <Chip key={index} label={skill} size="small" sx={{ mr: 1, mt: 1 }} />
-            ))}
-          </div>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="secondary">
-            Fermer
-          </Button>
-          <Button 
-            onClick={handleApply} 
-            color="primary"
-            disabled={appliedOffers.includes(selectedOffer?.id)} // Disable if already applied
-          >
-            {appliedOffers.includes(selectedOffer?.id) ? 'Postulé' : 'Postuler'}
-          </Button>
-        </DialogActions>
-      </Dialog>
     </div>
   );
 };
 
-// Exportez à la fois le composant et les données si nécessaire
+
+
 export { offers };
 export default OffersPage;
