@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FiUser, FiMail, FiFileText, FiSend } from 'react-icons/fi';
 
@@ -12,27 +12,9 @@ export default function ApplyForm() {
     cv: null,
   });
 
-  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-
-  // Fetch job data from backend
-  useEffect(() => {
-    const fetchOffer = async () => {
-      try {
-        const res = await fetch(`http://localhost:5000/api/jobs/${offerId}`);
-        if (!res.ok) throw new Error('Erreur lors de la récupération de l\'offre');
-        const data = await res.json();
-        setOfferTitle(data.title);
-      } catch (err) {
-        console.error(err);
-        setOfferTitle('(Offre inconnue)');
-      }
-    };
-
-    fetchOffer();
-  }, [offerId]);
+  const [showDialog, setShowDialog] = useState(false); // État pour afficher la boîte de dialogue
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -47,7 +29,6 @@ export default function ApplyForm() {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMessage('');
-    setSuccessMessage('');
 
     try {
       const data = new FormData();
@@ -56,15 +37,18 @@ export default function ApplyForm() {
       data.append('motivation', formData.motivation);
       data.append('cv', formData.cv);
 
-      // Envoi au backend Node
-      const response = await fetch(`http://localhost:5000/api/apply/${offerId}`, {
+      // Exemple POST vers une API
+      /*
+      const response = await fetch(`/api/apply/${offerId}`, {
         method: 'POST',
         body: data,
       });
 
       if (!response.ok) throw new Error('Erreur lors de l’envoi.');
+      */
 
-      setSuccessMessage('Candidature envoyée avec succès ! Vous devez attendre la réponse.');
+      // Afficher la boîte de dialogue après la soumission réussie
+      setShowDialog(true);
     } catch (err) {
       setErrorMessage('Une erreur est survenue. Veuillez réessayer.');
     } finally {
@@ -72,16 +56,19 @@ export default function ApplyForm() {
     }
   };
 
+  const handleDialogClose = () => {
+    setShowDialog(false); // Fermer la boîte de dialogue
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.card}>
         <div style={styles.header}>
-          <h1 style={styles.title}>Postuler à l'offre </h1>
+          <h1 style={styles.title}>Postuler à l'offre #{offerId}</h1>
           <p style={styles.subtitle}>Remplissez le formulaire pour candidater</p>
         </div>
 
         {errorMessage && <div style={styles.errorAlert}>{errorMessage}</div>}
-        {successMessage && <div style={styles.successAlert}>{successMessage}</div>}
 
         <form onSubmit={handleSubmit} style={styles.form}>
           <div style={styles.inputGroup}>
@@ -163,6 +150,17 @@ export default function ApplyForm() {
           </button>
         </form>
       </div>
+
+      {/* Dialog Modal */}
+      {showDialog && (
+        <div style={styles.dialogOverlay}>
+          <div style={styles.dialogBox}>
+            <h3 style={styles.dialogTitle}>Candidature envoyée</h3>
+            <p style={styles.dialogMessage}>Votre candidature a été envoyée avec succès !</p>
+            <button onClick={handleDialogClose} style={styles.dialogButton}>Fermer</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -205,15 +203,6 @@ const styles = {
     borderRadius: '8px',
     marginBottom: '24px',
     fontSize: '14px',
-  },
-  successAlert: {
-    backgroundColor: '#d1fae5',
-    color: '#10b981',
-    padding: '12px 16px',
-    borderRadius: '8px',
-    marginBottom: '24px',
-    fontSize: '14px',
-    textAlign: 'center',
   },
   form: {
     display: 'flex',
@@ -281,5 +270,95 @@ const styles = {
   },
   buttonIcon: {
     fontSize: '18px',
+  },
+  // Styles pour la boîte de dialogue
+  dialogOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000,
+    backdropFilter: 'blur(3px)',
+    animation: 'fadeIn 0.3s ease-out forwards',
+  },
+  
+  dialogBox: {
+    backgroundColor: '#ffffff',
+    padding: '32px',
+    borderRadius: '12px',
+    textAlign: 'center',
+    width: 'min(90vw, 380px)',
+    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)',
+    transform: 'scale(0.95)',
+    animation: 'scaleUp 0.3s ease-out forwards',
+    transition: 'all 0.2s ease',
+    border: '1px solid rgba(0, 0, 0, 0.1)',
+  },
+  
+  dialogTitle: {
+    fontSize: '20px',
+    fontWeight: '700',
+    marginBottom: '16px',
+    color: '#1a1a1a',
+    lineHeight: '1.4',
+  },
+  
+  dialogMessage: {
+    fontSize: '15px',
+    marginBottom: '28px',
+    color: '#4a4a4a',
+    lineHeight: '1.5',
+  },
+  
+  dialogButton: {
+    backgroundColor: '#6366f1',
+    color: '#ffffff',
+    padding: '12px 24px',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '15px',
+    fontWeight: '500',
+    transition: 'all 0.2s ease',
+    minWidth: '120px',
+    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+    
+    ':hover': {
+      backgroundColor: '#4f46e5',
+      transform: 'translateY(-1px)',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.15)',
+    },
+    
+    ':active': {
+      transform: 'translateY(0)',
+      boxShadow: '0 2px 3px rgba(0, 0, 0, 0.1)',
+    },
+    
+    ':focus': {
+      outline: 'none',
+      boxShadow: '0 0 0 3px rgba(99, 102, 241, 0.3)',
+    },
+  },
+  
+  // Animations
+  '@keyframes fadeIn': {
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+  },
+  
+  '@keyframes scaleUp': {
+    from: { 
+      transform: 'scale(0.95)',
+      opacity: 0.8,
+    },
+    to: { 
+      transform: 'scale(1)',
+      opacity: 1,
+    },
   },
 };

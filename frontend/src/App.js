@@ -1,51 +1,31 @@
-import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
-
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import LandingPage from "./pages/landing-page/LandingPage";
-import LoginPage from "./pages/Auth/login";
-import RegisterPage from "./pages/Auth/register";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import Header from './components/Header';
+import Footer from './components/Footer';
+import LandingPage from './pages/landing-page/LandingPage';
+import LoginPage from './pages/Auth/login';
+import RegisterPage from './pages/Auth/register';
+import Dashboard from './pages/Dashboard/Dashboard';
 import UserProfile from './pages/UserProfile/UserProfile';
 import UsersPage from './pages/UsersPage';
 import OffersPage from './pages/OffersPage';
 import SwipeComponent from './pages/SwipeCard/SwipeComponent';
 import ApplyForm from "./pages/ApplyForm";
 
-//import SwipeCard from "./pages/SwipeCard/SwipeCard";
-
 function App() {
-  const mockUser = {
-    name: "Test Utilisateur",
-    email: "test@matchup.com",
-    photo: "/default-avatar.png",
-    joinDate: "2024-01-01"
-  };
   const [msg, setMsg] = useState('');
 
-  useEffect(() => {
-    fetch('http://localhost:3000/') // l'URL vers ton backend
-      .then(res => res.text()) // .text() car tu envoies juste "hello"
-      .then(data => setMsg(data))
-      .catch(err => console.error(err));
-  }, []);
 
 
   return (
-    
-    
     <Router>
       <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/dashboard" element={<Dashboard user={mockUser} />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/users" element={<UsersPage />} />
         <Route path="/offers" element={<OffersPage />} />
@@ -54,9 +34,7 @@ function App() {
       </Routes>
       <Footer />
     </Router>
-    );
-  }
-
-
+  );
+}
 
 export default App;

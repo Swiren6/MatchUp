@@ -1,10 +1,14 @@
-import { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 
 export default function LoginPage() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -16,13 +20,26 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    setError('');
+  
     try {
-      const res = await axios.post('/api/auth/login', formData);
-      localStorage.setItem('token', res.data.token); // Store token in localStorage
-      navigate('/dashboard');  // Redirect to dashboard
+      const response = await fetch('http://localhost:5000/api/auth/signin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.message || data.error || 'Email ou mot de passe invalide');
+      }
+  
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      navigate('/dashboard');
     } catch (err) {
-      setErrors({ api: err.response?.data?.message || 'Error during login' });
+      setError(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -32,39 +49,58 @@ export default function LoginPage() {
     <div style={styles.container}>
       <div style={styles.loginCard}>
         <div style={styles.header}>
-          <h2 style={styles.title}>Login</h2>
-          <p style={styles.subtitle}>Enter your credentials to access the platform</p>
+          <h1 style={styles.title}>Connexion</h1>
+          <p style={styles.subtitle}>Bienvenue de retour !</p>
         </div>
-        <form style={styles.form} onSubmit={handleSubmit}>
+
+        {error && <div style={styles.errorAlert}>{error}</div>}
+
+        <form onSubmit={handleSubmit} style={styles.form}>
           <div style={styles.inputGroup}>
             <label style={styles.label}>Email</label>
-            <input
-              style={styles.input}
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
+            <div style={styles.inputContainer}>
+              <FiMail style={styles.inputIcon} />
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                placeholder="Votre email"
+                style={styles.input}
+              />
+            </div>
           </div>
+
           <div style={styles.inputGroup}>
-            <label style={styles.label}>Password</label>
-            <input
-              style={styles.input}
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <label style={styles.label}>Mot de passe</label>
+            <div style={styles.inputContainer}>
+              <FiLock style={styles.inputIcon} />
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                placeholder="Votre mot de passe"
+                style={styles.input}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(prev => !prev)}
+                style={styles.passwordToggle}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
           </div>
-          {errors.api && <div style={styles.errorAlert}>{errors.api}</div>}
+
           <button
-            style={isLoading ? styles.submitButtonLoading : styles.submitButton}
             type="submit"
             disabled={isLoading}
+            style={isLoading ? styles.submitButtonLoading : styles.submitButton}
           >
-            {isLoading ? 'Logging in...' : 'Log In'}
+            {isLoading ? 'Connexion en cours...' : 'Se connecter'}
           </button>
         </form>
       </div>
@@ -106,17 +142,18 @@ const styles = {
     fontSize: '14px',
     color: '#64748b',
   },
+  errorAlert: {
+    backgroundColor: '#fee2e2',
+    color: '#b91c1c',
+    padding: '12px 16px',
+    borderRadius: '8px',
+    marginBottom: '24px',
+    fontSize: '14px',
+  },
   form: {
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
-    width: '100%',
-    maxWidth: '420px',
-    backgroundColor: '#ffffff',
-    borderRadius: '12px',
-    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
-    padding: '40px',
-    marginBottom: '20px',
   },
   inputGroup: {
     display: 'flex',
@@ -127,6 +164,17 @@ const styles = {
     fontSize: '14px',
     fontWeight: '500',
     color: '#334155',
+  },
+  inputContainer: {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  inputIcon: {
+    position: 'absolute',
+    left: '14px',
+    color: '#94a3b8',
+    fontSize: '18px',
   },
   input: {
     width: '100%',
@@ -166,13 +214,5 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '8px',
-  },
-  errorAlert: {
-    backgroundColor: '#fee2e2',
-    color: '#b91c1c',
-    padding: '12px 16px',
-    borderRadius: '8px',
-    marginBottom: '24px',
-    fontSize: '14px',
   },
 };

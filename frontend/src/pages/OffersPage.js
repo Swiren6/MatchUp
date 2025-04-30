@@ -31,7 +31,7 @@ const offers = [
 ];
 
 const OffersPage = () => {
-  const navigate = useNavigate(); // ✅ maintenant c'est correct
+  const navigate = useNavigate();
 
   return (
     <div style={{ padding: '20px' }}>
@@ -61,7 +61,7 @@ const OffersPage = () => {
                   variant="contained" 
                   size="small" 
                   sx={{ mt: 1 }}
-                  onClick={() => navigate(`/apply/${offer.id}`)}
+                  onClick={() => navigate(`/apply/${offer.id}`)}  // Vérifie si la route existe
                 >
                   Postuler
                 </Button>
@@ -79,6 +79,8 @@ const OffersPage = () => {
     </div>
   );
 };
+
+
 
 export { offers };
 export default OffersPage;
