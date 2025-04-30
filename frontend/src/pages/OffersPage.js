@@ -1,7 +1,8 @@
 import { Card, CardContent, Typography, Grid, Chip, Button } from '@mui/material';
 import { Work as WorkIcon } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
-// Déclaration des données des offres (ne pas utiliser 'export' ici)
+// Données des offres
 const offers = [
   {
     id: 1,
@@ -30,6 +31,8 @@ const offers = [
 ];
 
 const OffersPage = () => {
+  const navigate = useNavigate(); // ✅ maintenant c'est correct
+
   return (
     <div style={{ padding: '20px' }}>
       <Typography variant="h4" gutterBottom>
@@ -54,7 +57,12 @@ const OffersPage = () => {
                     <Chip key={index} label={skill} size="small" sx={{ mr: 1, mt: 1 }} />
                   ))}
                 </div>
-                <Button variant="contained" size="small" sx={{ mt: 1 }}>
+                <Button 
+                  variant="contained" 
+                  size="small" 
+                  sx={{ mt: 1 }}
+                  onClick={() => navigate(`/apply/${offer.id}`)}
+                >
                   Postuler
                 </Button>
                 <Chip 
@@ -72,6 +80,5 @@ const OffersPage = () => {
   );
 };
 
-// Exportez à la fois le composant et les données si nécessaire
 export { offers };
 export default OffersPage;

@@ -15,6 +15,7 @@ import UserProfile from './pages/UserProfile/UserProfile';
 import UsersPage from './pages/UsersPage';
 import OffersPage from './pages/OffersPage';
 import SwipeComponent from './pages/SwipeCard/SwipeComponent';
+import ApplyForm from "./pages/ApplyForm";
 
 //import SwipeCard from "./pages/SwipeCard/SwipeCard";
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/users" element={<UsersPage />} />
         <Route path="/offers" element={<OffersPage />} />
         <Route path="/swipe" element={<SwipeComponent />} />
+        <Route path="/apply/:offerId" element={<ApplyForm />} />
       </Routes>
       <Footer />
     </Router>

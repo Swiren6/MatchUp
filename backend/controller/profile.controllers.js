@@ -3,8 +3,6 @@ const ValidateProfile=require('../validator/profile.validator');
 const UserModel=require('../models/user.model');
 
 
-
-
 //update profile
 const Updateprofile=async (req , res)=>{
     try{
