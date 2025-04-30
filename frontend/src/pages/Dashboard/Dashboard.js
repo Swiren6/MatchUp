@@ -32,9 +32,9 @@ const Dashboard = ({ user }) => {
       <div className="dashboard-content">
         <section className="user-card">
           <img 
-            src={user.photo || '/default-avatar.png'} 
-            alt="Profil" 
-            className="user-avatar"
+          src={user.photo || '/images/default-avatar.png'} 
+          alt="Profil" 
+          className="user-avatar"
           />
           <div className="user-info">
             <h2>{user.email}</h2>
