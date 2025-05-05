@@ -12,6 +12,7 @@ import UsersPage from './pages/UsersPage';
 import OffersPage from './pages/OffersPage';
 import SwipeComponent from './pages/SwipeCard/SwipeComponent';
 import ApplyForm from "./pages/ApplyForm";
+import DashboardRecruiter from './pages/Recruiter/DashboardRecruiter';
 
 function App() {
   const [msg, setMsg] = useState('');
@@ -31,6 +32,7 @@ function App() {
         <Route path="/offers" element={<OffersPage />} />
         <Route path="/swipe" element={<SwipeComponent />} />
         <Route path="/apply/:offerId" element={<ApplyForm />} />
+        <Route path="/recruiter/*" element={<DashboardRecruiter />} />
       </Routes>
       <Footer />
     </Router>
