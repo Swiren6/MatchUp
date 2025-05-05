@@ -119,3 +119,9 @@ body {
     border: 1px solid #ddd;
     border-radius: 4px;
   }
+
+  /* Dans App.css */
+main {
+  padding-top: 80px; /* Compensation pour le header fixe */
+  padding-bottom: 60px; /* Compensation pour le footer */
+}

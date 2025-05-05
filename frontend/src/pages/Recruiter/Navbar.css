@@ -1,0 +1,158 @@
+/* Navbar.css */
+.recruiter-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    padding: 1rem 2rem;
+  }
+  
+  .recruiter-header.scrolled {
+    background-color: #2c3e50;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 2rem;
+  }
+  
+  .recruiter-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .navbar-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .navbar-brand h1 {
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #3498db, #9b59b6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .subtitle {
+    color: #bdc3c7;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 0.2rem;
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+  
+  .navbar-links a {
+    color: #2d98b2;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .navbar-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3498db, #9b59b6);
+    transition: width 0.3s ease;
+  }
+  
+  .navbar-links a:hover {
+    color: #1171a9;
+  }
+  
+  .navbar-links a:hover::after {
+    width: 100%;
+  }
+  
+  .navbar-links a.active {
+    color: #1171a9;
+    font-weight: 600;
+  }
+  
+  .navbar-links a.active::after {
+    width: 100%;
+  }
+  
+  .logout-button {
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(231, 76, 60, 0.3);
+  }
+  
+  .logout-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+  }
+  
+  /* Animation pour le changement d'onglet */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .navbar-links a {
+    animation: fadeIn 0.3s ease forwards;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 992px) {
+    .navbar-links {
+      gap: 1.5rem;
+    }
+    
+    .navbar-links a {
+      font-size: 0.9rem;
+    }
+    
+    .logout-button {
+      padding: 0.5rem 1.2rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .recruiter-navbar {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+    
+    .navbar-links {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .logout-button {
+      margin-top: 0.5rem;
+    }
+  }
