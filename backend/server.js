@@ -6,29 +6,29 @@ const cors = require("cors");
 // Config dotenv
 dotenv.config();
 
-// Import des routes
-const userRoutes = require("./routes/userRoutes");
-const signupRoutes = require("./routes/signup");
-const signinRoutes = require("./routes/signin");
-
 const app = express();
 
 // Middlewares
-app.use(express.json()); // Pour lire les données JSON
-app.use(express.static("public")); // Pour servir des fichiers statiques (ex: images, uploads)
+app.use(express.json()); // Must come before routes
+app.use(express.static("public"));
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+
+// Import routes
+const userRoutes = require("./routes/user.Routes");
+const authRoutes = require("./routes/auth.routes");
+const adminRoutes = require("./routes/admin.routes");
 
 // Routes API
 app.use("/api/users", userRoutes);
-app.use("/api/auth", signupRoutes);
-app.use("/api/auth", signinRoutes);
-
-// Route de test
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
+// Test route
 app.get("/", (req, res) => {
   res.send("👋 Bienvenue sur l'API backend de MatchUp !");
 });
 
-// Connexion à MongoDB
+
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -39,7 +39,7 @@ mongoose.connect(process.env.MONGO_URI, {
   process.exit(1);
 });
 
-// Démarrage du serveur
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Serveur démarré sur le port ${PORT}`);

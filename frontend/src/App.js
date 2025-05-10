@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header';
 import Footer from './components/Footer';
-import LandingPage from './pages/landing-page/LandingPage';
+import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/Auth/login';
 import RegisterPage from './pages/Auth/register';
-import Dashboard from './pages/Dashboard/Dashboard';
-import UserProfile from './pages/UserProfile/UserProfile';
-import UsersPage from './pages/UsersPage';
+import UserProfile from './components/UserProfile/UserProfile';
+import UsersPage from './components/Admin/UsersPage';
 import OffersPage from './pages/OffersPage';
-import SwipeComponent from './pages/SwipeCard/SwipeComponent';
+import FreelancerSwipe from './components/Recruiter/FreelancerSwipe';
 import ApplyForm from "./pages/ApplyForm";
-import DashboardRecruiter from './pages/Recruiter/DashboardRecruiter';
+import RecruiterPage from './pages/RecruiterPage';
+import AdminPage from './pages/AdminPage';
+import FreelancerPage from './pages/FreelancerPage';
 
 function App() {
   const [msg, setMsg] = useState('');
@@ -21,18 +21,19 @@ function App() {
 
   return (
     <Router>
-      <Header />
+      
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<UserProfile />} />
-        <Route path="/users" element={<UsersPage />} />
+        
         <Route path="/offers" element={<OffersPage />} />
-        <Route path="/swipe" element={<SwipeComponent />} />
+        <Route path="/swipe" element={<FreelancerSwipe />} />
         <Route path="/apply/:offerId" element={<ApplyForm />} />
-        <Route path="/recruiter/*" element={<DashboardRecruiter />} />
+        <Route path="/recruiter/*" element={<RecruiterPage />} />
+        <Route path="/admin/*" element={<AdminPage />} />
+        <Route path="/freelancer/*" element={<FreelancerPage />} />
       </Routes>
       <Footer />
     </Router>

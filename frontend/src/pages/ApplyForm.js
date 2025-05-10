@@ -14,7 +14,7 @@ export default function ApplyForm() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [showDialog, setShowDialog] = useState(false); // État pour afficher la boîte de dialogue
+  const [showDialog, setShowDialog] = useState(false); 
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;

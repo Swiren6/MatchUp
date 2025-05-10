@@ -1,0 +1,311 @@
+:root {
+  --primary: #4361ee;
+  --primary-dark: #3f37c9;
+  --accent: #4cc9f0;
+  --success: #4CAF50;
+  --danger: #FF5252;
+  --dark: #2b2d42;
+  --light: #f8f9fa;
+  --gray: #6c757d;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f5f7fa;
+}
+
+.swipe-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.freelancer-card {
+  position: absolute;
+  width: 90%;
+  max-width: 400px;
+  height: 80vh;
+  max-height: 700px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: transform 0.3s, opacity 0.3s;
+  overflow: hidden;
+}
+
+.card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  color: white;
+  padding: 20px;
+  transition: all 0.4s ease;
+}
+
+.show-bio {
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.card-header {
+  margin-bottom: 20px;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.card-header h3 {
+  margin: 5px 0 0;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.meta-info {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.rate {
+  background: rgba(76, 175, 80, 0.9);
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.location {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.card-bio {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.show-bio .card-bio {
+  max-height: 300px;
+  opacity: 1;
+  margin-bottom: 20px;
+}
+
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.skill-tag {
+  background: rgba(255,255,255,0.2);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  backdrop-filter: blur(5px);
+  transition: all 0.2s;
+}
+
+.skill-tag:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.bio-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+  transition: all 0.2s;
+}
+
+.bio-toggle:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+.actions {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  gap: 20px;
+  z-index: 10;
+}
+
+.actions button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+
+.actions button:hover {
+  transform: scale(1.1);
+}
+
+.reject {
+  background: var(--danger);
+  color: white;
+}
+
+.accept {
+  background: var(--success);
+  color: white;
+}
+
+.swipe-left {
+  animation: swipeLeft 0.5s forwards;
+}
+
+.swipe-right {
+  animation: swipeRight 0.5s forwards;
+}
+
+@keyframes swipeLeft {
+  to {
+    transform: translateX(-100px) rotate(-15deg);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeRight {
+  to {
+    transform: translateX(100px) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+.match-popup {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transform: translateY(100%);
+  animation: slideUp 0.3s forwards;
+  padding: 1.5rem;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.popup-content {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.popup-content h3 {
+  margin: 0 0 0.5rem;
+  color: var(--dark);
+}
+
+.popup-content p {
+  margin: 0 0 1.5rem;
+  color: var(--gray);
+}
+
+.popup-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.popup-actions button {
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.cancel-btn {
+  background: #f0f0f0;
+  color: var(--gray);
+}
+
+.cancel-btn:hover {
+  background: #e0e0e0;
+}
+
+.confirm-btn {
+  background: var(--success);
+  color: white;
+}
+
+.confirm-btn:hover {
+  background: #3e8e41;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.end-screen {
+  text-align: center;
+  padding: 2rem;
+}
+
+.end-screen h2 {
+  color: var(--dark);
+  margin-bottom: 1.5rem;
+}
+
+.end-screen button {
+  padding: 0.8rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.end-screen button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+  .freelancer-card {
+    height: 75vh;
+  }
+  
+  .card-overlay {
+    padding: 1.5rem;
+  }
+  
+  .actions button {
+    width: 55px;
+    height: 55px;
+  }
+}
