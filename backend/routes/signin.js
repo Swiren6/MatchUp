@@ -9,15 +9,27 @@ const JWT_SECRET = process.env.JWT_SECRET || "super_secret_key";
 router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
 
+  // Validate email format early (optional but recommended)
+  if (!validator.isEmail(email)) {
+    return res.status(400).json({ message: "Email invalide" });
+  }
+
   try {
-    const user = await User.findOne({ email });
-    if (!user)
-      return res.status(400).json({ message: "Email ou mot de passe incorrect" });
+    // Find user (include password explicitly)
+    const user = await User.findOne({ email }).select("+password");
+    
+    // Reject if user doesn't exist
+    if (!user) {
+      return res.status(401).json({ message: "Email ou mot de passe incorrect" });
+    }
 
+    // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
-      return res.status(400).json({ message: "Email ou mot de passe incorrect" });
+    if (!isMatch) {
+      return res.status(401).json({ message: "Email ou mot de passe incorrect" });
+    }
 
+    // Generate token (success case)
     const token = jwt.sign(
       { id: user._id, email: user.email, role: user.role },
       JWT_SECRET,
@@ -30,13 +42,16 @@ router.post("/signin", async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
-        lastname: user.lastname,
         email: user.email,
         role: user.role
       }
     });
+
   } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la connexion", error: error.message });
+    res.status(500).json({ 
+      message: "Erreur serveur",
+      error: process.env.NODE_ENV === "development" ? error.message : undefined
+    });
   }
 });
 

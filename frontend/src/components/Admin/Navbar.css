@@ -1,0 +1,204 @@
+/* AdminNavbar.css */
+.admin-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background-color: rgba(44, 62, 80, 0.9);
+    padding: 1rem 2rem;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-header.scrolled {
+    background-color: rgba(26, 32, 44, 0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 0.7rem 2rem;
+}
+
+.admin-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.navbar-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.navbar-brand h1 {
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #3498db, #9b59b6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    color: #bdc3c7;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 0.2rem;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.navbar-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar-links a svg {
+    transition: all 0.3s ease;
+}
+
+.navbar-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3498db, #9b59b6);
+    transition: width 0.3s ease;
+}
+
+.navbar-links a:hover {
+    color: #3498db;
+}
+
+.navbar-links a:hover svg {
+    transform: translateY(-2px);
+}
+
+.navbar-links a:hover::after {
+    width: 100%;
+}
+
+.navbar-links a.active {
+    color: #3498db;
+    font-weight: 600;
+}
+
+.navbar-links a.active::after {
+    width: 100%;
+}
+
+.logout-button {
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(231, 76, 60, 0.3);
+    margin-left: 1rem;
+}
+
+.logout-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.navbar-links a {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .navbar-links {
+        gap: 1.2rem;
+    }
+    
+    .navbar-links a {
+        font-size: 0.9rem;
+    }
+    
+    .logout-button {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-header {
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .admin-navbar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .navbar-brand {
+        align-items: center;
+        width: 100%;
+    }
+    
+    .navbar-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem 1.5rem;
+        width: 100%;
+    }
+    
+    .logout-button {
+        margin: 0.5rem 0 0;
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-header {
+        padding: 0.7rem 1rem;
+    }
+    
+    .navbar-brand h1 {
+        font-size: 1.5rem;
+    }
+    
+    .navbar-links {
+        gap: 0.8rem 1.2rem;
+    }
+    
+    .navbar-links a {
+        font-size: 0.85rem;
+        gap: 0.3rem;
+    }
+    
+    .navbar-links a svg {
+        font-size: 18px !important;
+    }
+}
