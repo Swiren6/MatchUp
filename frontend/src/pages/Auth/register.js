@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiUser, FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
+import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiBriefcase } from 'react-icons/fi';
 
-export default function RegisterPage() {
+const RegisterPage = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
-    role: 'freelancer' // Valeur par défaut modifiée pour correspondre au backend
+    role: 'freelancer'
   });
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -25,21 +25,40 @@ export default function RegisterPage() {
     setIsLoading(true);
     setError('');
 
+    // Basic validation
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
+      setError('Veuillez remplir tous les champs obligatoires');
+      setIsLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError('Le mot de passe doit contenir au moins 6 caractères');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:5000/api/auth/signup', { // Route corrigée
+      const response = await fetch('http://localhost:5000/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          name: formData.firstName,
+          lastname: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role
+        })
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || data.error || 'Erreur d\'inscription');
+        throw new Error(data.message || data.error || "Erreur lors de l'inscription");
       }
 
-      // Redirection avec message de succès
-      navigate('/login?registration=success');
+      // Redirect to login with success message
+      navigate('/login', { state: { registrationSuccess: true } });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -55,43 +74,49 @@ export default function RegisterPage() {
           <p style={styles.subtitle}>Rejoignez notre communauté</p>
         </div>
 
-        {error && <div style={styles.errorAlert}>{error}</div>}
+        {error && (
+          <div style={styles.errorAlert}>
+            <p style={styles.errorText}>{error}</p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} style={styles.form}>
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Prénom</label>
-            <div style={styles.inputContainer}>
-              <FiUser style={styles.inputIcon} />
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                placeholder="Votre prénom"
-                style={styles.input}
-              />
+          <div style={styles.formRow}>
+            <div style={styles.inputGroup}>
+              <label style={styles.label}>Prénom*</label>
+              <div style={styles.inputContainer}>
+                <FiUser style={styles.inputIcon} />
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  required
+                  placeholder="Votre prénom"
+                  style={styles.input}
+                />
+              </div>
+            </div>
+
+            <div style={styles.inputGroup}>
+              <label style={styles.label}>Nom*</label>
+              <div style={styles.inputContainer}>
+                <FiUser style={styles.inputIcon} />
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  required
+                  placeholder="Votre nom"
+                  style={styles.input}
+                />
+              </div>
             </div>
           </div>
 
           <div style={styles.inputGroup}>
-            <label style={styles.label}>Nom</label>
-            <div style={styles.inputContainer}>
-              <FiUser style={styles.inputIcon} />
-              <input
-                type="text"
-                name="lastname"
-                value={formData.lastname}
-                onChange={handleChange}
-                required
-                placeholder="Votre nom"
-                style={styles.input}
-              />
-            </div>
-          </div>
-
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Email</label>
+            <label style={styles.label}>Email*</label>
             <div style={styles.inputContainer}>
               <FiMail style={styles.inputIcon} />
               <input
@@ -100,14 +125,14 @@ export default function RegisterPage() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                placeholder="Votre email"
+                placeholder="exemple@email.com"
                 style={styles.input}
               />
             </div>
           </div>
 
           <div style={styles.inputGroup}>
-            <label style={styles.label}>Mot de passe</label>
+            <label style={styles.label}>Mot de passe*</label>
             <div style={styles.inputContainer}>
               <FiLock style={styles.inputIcon} />
               <input
@@ -116,12 +141,13 @@ export default function RegisterPage() {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                placeholder="Votre mot de passe"
+                minLength="6"
+                placeholder="Au moins 6 caractères"
                 style={styles.input}
               />
               <button
                 type="button"
-                onClick={() => setShowPassword(prev => !prev)}
+                onClick={() => setShowPassword(!showPassword)}
                 style={styles.passwordToggle}
               >
                 {showPassword ? <FiEyeOff /> : <FiEye />}
@@ -130,18 +156,18 @@ export default function RegisterPage() {
           </div>
 
           <div style={styles.inputGroup}>
-            <label style={styles.label}>Choisissez votre rôle</label>
-            <div style={styles.inputContainer}>
+            <label style={styles.label}>Je suis un(e)*</label>
+            <div style={styles.roleContainer}>
+              <FiBriefcase style={styles.roleIcon} />
               <select
-                style={styles.roleSelect}
                 name="role"
                 value={formData.role}
                 onChange={handleChange}
+                style={styles.roleSelect}
                 required
               >
-                <option value="" disabled>Choisissez votre rôle</option>
                 <option value="freelancer">Freelancer</option>
-                <option value="recruiter">Recruiter</option>
+                <option value="recruiter">Recruteur</option>
               </select>
             </div>
           </div>
@@ -151,38 +177,35 @@ export default function RegisterPage() {
             disabled={isLoading}
             style={isLoading ? styles.submitButtonLoading : styles.submitButton}
           >
-            {isLoading ? 'Création en cours...' : 'Créer un compte'}
+            {isLoading ? 'Inscription en cours...' : "S'inscrire"}
           </button>
+
           <div style={styles.loginLinkContainer}>
-  <span style={styles.loginText}>Déjà un compte ? </span>
-  <a 
-    href="/login" 
-    style={styles.loginLink}
-    onClick={(e) => {
-      e.preventDefault();
-      navigate('/login');
-    }}
-  >
-    Se connecter
-  </a>
-</div>
+            <p style={styles.loginText}>
+              Déjà un compte?{' '}
+              <a 
+                href="/login" 
+                style={styles.loginLink}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/login');
+                }}
+              >
+                Se connecter
+              </a>
+            </p>
+          </div>
         </form>
       </div>
     </div>
   );
-}
-
-
-
-
-
+};
 
 const styles = {
   container: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
     minHeight: '100vh',
     backgroundColor: '#f8fafc',
     padding: '20px',
@@ -190,12 +213,11 @@ const styles = {
   },
   registerCard: {
     width: '100%',
-    maxWidth: '450px',
+    maxWidth: '500px',
     backgroundColor: '#ffffff',
     borderRadius: '12px',
     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
     padding: '40px',
-    marginBottom: '20px',
   },
   header: {
     textAlign: 'center',
@@ -217,12 +239,20 @@ const styles = {
     padding: '12px 16px',
     borderRadius: '8px',
     marginBottom: '24px',
+  },
+  errorText: {
+    margin: '0',
     fontSize: '14px',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
+  },
+  formRow: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '15px',
   },
   inputGroup: {
     display: 'flex',
@@ -254,6 +284,11 @@ const styles = {
     color: '#1e293b',
     backgroundColor: '#f8fafc',
     transition: 'all 0.2s ease',
+    ':focus': {
+      outline: 'none',
+      borderColor: '#6366f1',
+      boxShadow: '0 0 0 2px rgba(99, 102, 241, 0.2)',
+    },
   },
   passwordToggle: {
     position: 'absolute',
@@ -267,6 +302,35 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  roleContainer: {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  roleIcon: {
+    position: 'absolute',
+    left: '14px',
+    color: '#94a3b8',
+    fontSize: '18px',
+  },
+  roleSelect: {
+    width: '100%',
+    padding: '12px 16px 12px 42px',
+    border: '1px solid #e2e8f0',
+    borderRadius: '8px',
+    fontSize: '14px',
+    color: '#1e293b',
+    backgroundColor: '#f8fafc',
+    appearance: 'none',
+    WebkitAppearance: 'none',
+    MozAppearance: 'none',
+    cursor: 'pointer',
+    ':focus': {
+      outline: 'none',
+      borderColor: '#6366f1',
+      boxShadow: '0 0 0 2px rgba(99, 102, 241, 0.2)',
+    },
+  },
   submitButton: {
     padding: '12px 16px',
     backgroundColor: '#6366f1',
@@ -276,11 +340,10 @@ const styles = {
     fontSize: '16px',
     fontWeight: '600',
     cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '8px',
     transition: 'all 0.2s ease',
+    ':hover': {
+      backgroundColor: '#4f46e5',
+    },
   },
   submitButtonLoading: {
     padding: '12px 16px',
@@ -291,40 +354,23 @@ const styles = {
     fontSize: '16px',
     fontWeight: '600',
     cursor: 'not-allowed',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '8px',
   },
-  roleSelect: {
-    width: '100%',
-    padding: '12px 16px',
-    border: '1px solid #e2e8f0',
-    borderRadius: '8px',
-    fontSize: '14px',
-    color: '#1e293b',
-    backgroundColor: '#f8fafc',
-    appearance: 'none',
-    WebkitAppearance: 'none',
-    MozAppearance: 'none',
-  },  
   loginLinkContainer: {
-    display: 'flex',
-    justifyContent: 'center',
+    textAlign: 'center',
     marginTop: '16px',
-    fontSize: '14px',
   },
   loginText: {
+    fontSize: '14px',
     color: '#64748b',
   },
   loginLink: {
     color: '#6366f1',
-    marginLeft: '4px',
-    textDecoration: 'none',
     fontWeight: '500',
-    cursor: 'pointer',
-    '&:hover': {
+    textDecoration: 'none',
+    ':hover': {
       textDecoration: 'underline',
     },
   },
 };
+
+export default RegisterPage;
