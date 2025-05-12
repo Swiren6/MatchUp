@@ -156,3 +156,27 @@
       margin-top: 0.5rem;
     }
   }
+  .project-swipe-container {
+  padding-top: 70px; /* Hauteur de votre navbar */
+  height: calc(100vh - 70px);
+  overflow: hidden;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-links {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px;
+  }
+  
+  .navbar-links a {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+  
+  .project-swipe-container {
+    padding-top: 60px;
+    height: calc(100vh - 60px);
+  }
+}

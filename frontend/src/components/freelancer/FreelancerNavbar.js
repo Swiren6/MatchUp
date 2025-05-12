@@ -9,7 +9,8 @@ const FreelancerNavBar = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const path = location.pathname.split('/freelancer/')[1] || 'dashboard';
+    // Modification ici pour mieux gérer les routes
+    const path = location.pathname.replace('/freelancer/', '') || 'dashboard';
     setActiveTab(path);
 
     const handleScroll = () => {
@@ -33,10 +34,30 @@ const FreelancerNavBar = () => {
         </div>
 
         <div className="navbar-links">
-          <Link to="/freelancer" className={activeTab === 'dashboard' ? 'active' : ''}>📊 Tableau de bord</Link>
-          <Link to="/freelancer/offers" className={activeTab === 'offers' ? 'active' : ''}>📢 Les offres</Link>
-          <Link to="/freelancer/swipe" className={activeTab === 'swipe' ? 'active' : ''}>📄 projets</Link>
-          <Link to="/freelancer/profile" className={activeTab === 'profile' ? 'active' : ''}>👤 Mon profil</Link>
+          <Link 
+            to="/freelancer" 
+            className={activeTab === 'dashboard' || activeTab === '' ? 'active' : ''}
+          >
+            📊 Tableau de bord
+          </Link>
+          <Link 
+            to="/freelancer/offers" 
+            className={activeTab === 'offers' ? 'active' : ''}
+          >
+            📢 Les offres
+          </Link>
+          <Link 
+            to="/freelancer/swipe" 
+            className={activeTab === 'swipe' ? 'active' : ''}
+          >
+            🔍 Découvrir des projets
+          </Link>
+          <Link 
+            to="/freelancer/profile" 
+            className={activeTab === 'profile' ? 'active' : ''}
+          >
+            👤 Mon profil
+          </Link>
         </div>
 
         <button className="logout-button" onClick={handleLogout}>Déconnexion</button>

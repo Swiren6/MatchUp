@@ -1,0 +1,344 @@
+:root {
+  --primary: #4361ee;
+  --primary-dark: #3f37c9;
+  --accent: #4cc9f0;
+  --success: #4CAF50;
+  --danger: #FF5252;
+  --dark: #2b2d42;
+  --light: #f8f9fa;
+  --gray: #6c757d;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f5f7fa;
+}
+
+.swipe-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card {
+  position: absolute;
+  width: 90%;
+  max-width: 500px;
+  height: 70vh;
+  max-height: 600px;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: transform 0.3s, opacity 0.3s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.card-overlay {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s ease;
+}
+
+.show-details .card-details {
+  max-height: 1000px;
+  opacity: 1;
+  margin-bottom: 20px;
+}
+
+.card-header {
+  margin-bottom: 15px;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.meta-info {
+  display: flex;
+  gap: 15px;
+  margin: 10px 0;
+}
+
+.budget {
+  background: rgba(67, 97, 238, 0.1);
+  color: var(--primary);
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.duration {
+  background: rgba(76, 201, 240, 0.1);
+  color: var(--accent);
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.client-info {
+  display: flex;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--gray);
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.client {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.rating {
+  color: #FFC107;
+}
+
+.card-details {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.card-details p {
+  color: var(--dark);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.skills-container {
+  margin-top: 20px;
+}
+
+.skills-container h4 {
+  margin-bottom: 10px;
+  color: var(--gray);
+  font-size: 0.9rem;
+}
+
+.skill-tag {
+  background: rgba(67, 97, 238, 0.1);
+  color: var(--primary);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.details-toggle {
+  background: transparent;
+  color: var(--primary);
+  border: none;
+  padding: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+}
+
+.actions {
+  position: absolute;
+  bottom: 30px;
+  display: flex;
+  gap: 20px;
+  z-index: 10;
+  width: 90%;
+  max-width: 500px;
+  justify-content: space-between;
+}
+
+.actions button {
+  padding: 15px 25px;
+  border-radius: 30px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+  font-weight: 600;
+}
+
+.actions button:hover {
+  transform: scale(1.05);
+}
+
+.skip {
+  background: white;
+  color: var(--gray);
+  border: 1px solid #eee;
+}
+
+.apply {
+  background: var(--primary);
+  color: white;
+  flex: 1;
+  max-width: 200px;
+}
+
+.swipe-down {
+  animation: swipeDown 0.5s forwards;
+}
+
+.swipe-up {
+  animation: swipeUp 0.5s forwards;
+}
+
+@keyframes swipeDown {
+  to {
+    transform: translateY(100px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeUp {
+  to {
+    transform: translateY(-100px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+.application-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.popup-content {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  max-width: 500px;
+  width: 100%;
+}
+
+.popup-content h3 {
+  margin: 0 0 0.5rem;
+  color: var(--dark);
+}
+
+.popup-content p {
+  margin: 0 0 1.5rem;
+  color: var(--gray);
+}
+
+.application-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.application-form textarea,
+.application-form input {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.application-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.popup-actions button {
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.cancel-btn {
+  background: #f0f0f0;
+  color: var(--gray);
+}
+
+.cancel-btn:hover {
+  background: #e0e0e0;
+}
+
+.submit-btn {
+  background: var(--success);
+  color: white;
+}
+
+.submit-btn:hover {
+  background: #3e8e41;
+}
+
+.end-screen {
+  text-align: center;
+  padding: 2rem;
+  max-width: 500px;
+}
+
+.end-screen h2 {
+  color: var(--dark);
+  margin-bottom: 1.5rem;
+}
+
+.end-screen button {
+  padding: 0.8rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.end-screen button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+  .project-card {
+    height: 65vh;
+    padding: 15px;
+  }
+  
+  .card-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .actions button {
+    padding: 12px 20px;
+  }
+}

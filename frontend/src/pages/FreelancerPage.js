@@ -5,6 +5,7 @@ import '../components/freelancer/Freelancer.css';
 import FreelancerNavBar from '../components/freelancer/FreelancerNavbar';   
 import FreelancerProfile from '../components/freelancer/FreelanceProfile';
 import FreelancerDashboard from '../components/freelancer/FreelncerDashboard';
+import ProjectSwipe from '../components/freelancer/ProjetSwipe';
 const FreelancerPage = () => {
     return (
         <div className="freelancer-dashboard">
@@ -13,6 +14,7 @@ const FreelancerPage = () => {
                 <Routes>
                     <Route index element={<FreelancerDashboard />} />
                     <Route path="profile" element={<FreelancerProfile />} />
+                    <Route path="swipe" element={<ProjectSwipe />} />
                     
                 </Routes>
                 <Outlet />
