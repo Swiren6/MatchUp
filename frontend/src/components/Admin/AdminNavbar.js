@@ -6,6 +6,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import WorkIcon from '@mui/icons-material/Work';
 import PersonIcon from '@mui/icons-material/Person';
 
+
 const AdminNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -46,9 +47,15 @@ const AdminNavbar = () => {
           <Link to="/admin/utilisateurs" className={activeTab === 'utilisateurs' ? 'active' : ''}>
             <GroupIcon sx={{ fontSize: 20 }} /> Les utilisateurs
           </Link>
+          <Link to="/admin/recruiters" className={activeTab === 'recruiters' ? 'active' : ''}>
+            <PersonIcon sx={{ fontSize: 20 }} /> les Recruteurs
+          </Link>
+
           <Link to="/admin/profile" className={activeTab === 'profile' ? 'active' : ''}>
             <PersonIcon sx={{ fontSize: 20 }} /> Mon profil
           </Link>
+
+          
         </div>
 
         <button className="logout-button" onClick={handleLogout}>

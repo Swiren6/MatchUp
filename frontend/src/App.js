@@ -34,6 +34,8 @@ function App() {
         <Route path="/recruiter/*" element={<RecruiterPage />} />
         <Route path="/admin/*" element={<AdminPage />} />
         <Route path="/freelancer/*" element={<FreelancerPage />} />
+
+
       </Routes>
       <Footer />
     </Router>

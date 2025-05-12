@@ -7,6 +7,7 @@ import AdminDashboard from '../components/Admin/AdminDashboard';
 import UsersPage from '../components/Admin/UsersPage';
 import OffersPage from '../components/Admin/OffersPage';
 import AdminProfile from '../components/Admin/AdminProfile';
+import RecruitersPage from '../components/Admin/RecruitersPage';
 
 
 const AdminPage = () => {
@@ -19,6 +20,7 @@ const AdminPage = () => {
                     <Route path="utilisateurs" element={<UsersPage />} />
                     <Route path="offres" element={<OffersPage />} />
                     <Route path="profile" element={<AdminProfile />} />
+                    <Route path="recruiters" element={<RecruitersPage />} />
 
                 </Routes>
                 <Outlet /> 
