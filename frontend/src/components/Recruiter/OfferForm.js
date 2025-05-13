@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import{Card,CardContent} from '@mui/material';
 
 const OfferForm = ({ onClose, onSave }) => {
   const [offer, setOffer] = useState({

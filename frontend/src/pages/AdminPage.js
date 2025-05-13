@@ -8,6 +8,9 @@ import UsersPage from '../components/Admin/UsersPage';
 import OffersPage from '../components/Admin/OffersPage';
 import AdminProfile from '../components/Admin/AdminProfile';
 import RecruitersPage from '../components/Admin/RecruitersPage';
+import AnalyticsPage from '../components/Admin/AnalyticsPage';
+import OfferForm from '../components/Recruiter/OfferForm';
+
 
 
 const AdminPage = () => {
@@ -21,6 +24,8 @@ const AdminPage = () => {
                     <Route path="offres" element={<OffersPage />} />
                     <Route path="profile" element={<AdminProfile />} />
                     <Route path="recruiters" element={<RecruitersPage />} />
+                    <Route path='analytics' element={<AnalyticsPage />} />
+                    <Route path="offreFORM" element={<OfferForm/>} />
 
                 </Routes>
                 <Outlet /> 
