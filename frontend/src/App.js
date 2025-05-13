@@ -13,6 +13,10 @@ import ApplyForm from "./pages/ApplyForm";
 import RecruiterPage from './pages/RecruiterPage';
 import AdminPage from './pages/AdminPage';
 import FreelancerPage from './pages/FreelancerPage';
+import SimpleChatbot from './components/Chatbot/SimpleChatbot';
+
+
+
 
 function App() {
   const [msg, setMsg] = useState('');
@@ -34,7 +38,8 @@ function App() {
         <Route path="/recruiter/*" element={<RecruiterPage />} />
         <Route path="/admin/*" element={<AdminPage />} />
         <Route path="/freelancer/*" element={<FreelancerPage />} />
-
+        <Route path="/SimpleChatbot" element={<SimpleChatbot />} />
+        
 
       </Routes>
       <Footer />
