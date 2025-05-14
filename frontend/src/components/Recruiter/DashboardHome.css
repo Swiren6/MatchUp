@@ -1,4 +1,170 @@
-/* Styles existants... */
+/* Base Styles */
+.dashboard-container {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #2d3748;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 30px;
+}
+
+.section-header h2 {
+  font-size: 28px;
+  margin: 0;
+  color: #1a365d;
+}
+
+.section-header p {
+  margin: 5px 0 0;
+  color: #718096;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-icon {
+  font-size: 30px;
+  margin-right: 15px;
+}
+
+.stat-content h3 {
+  margin: 0 0 5px;
+  font-size: 16px;
+  color: #4a5568;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 5px 0;
+  color: #2d3748;
+}
+
+.stat-change {
+  margin: 0;
+  font-size: 14px;
+  color: #38a169;
+}
+
+/* Activities List */
+.activities-list {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.activity-item {
+  display: flex;
+  padding: 12px 0;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-icon {
+  font-size: 20px;
+  margin-right: 15px;
+}
+
+.activity-content p {
+  margin: 0 0 5px;
+  font-weight: 500;
+}
+
+.activity-content small {
+  color: #718096;
+  font-size: 13px;
+}
+
+/* Messages List */
+.messages-list {
+  list-style: none;
+  padding: 0;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.message-item {
+  padding: 15px;
+  border-bottom: 1px solid #edf2f7;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-item strong {
+  margin-bottom: 5px;
+}
+
+.message-item span {
+  color: #4a5568;
+}
+
+.message-time {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #718096;
+  align-self: flex-end;
+}
+
+/* Comparison Table */
+.comparison-table {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+.comparison-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.comparison-table th, 
+.comparison-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.comparison-table th {
+  background: #f7fafc;
+  color: #4a5568;
+  font-weight: 600;
+}
+
+.positive {
+  color: #38a169;
+}
+
+.negative {
+  color: #e53e3e;
+}
 
 /* Chatbot Styles */
 .chatbot-toggle {
@@ -7,7 +173,7 @@
   right: 30px;
   width: 60px;
   height: 60px;
-  background: #3f51b5;
+  background: #4299e1;
   color: white;
   border-radius: 50%;
   display: flex;
@@ -23,11 +189,11 @@
 
 .chatbot-toggle:hover {
   transform: scale(1.1);
-  background: #303f9f;
+  background: #3182ce;
 }
 
 .chatbot-toggle.active {
-  background: #f44336;
+  background: #e53e3e;
 }
 
 .chatbot-window {
@@ -35,7 +201,7 @@
   bottom: 100px;
   right: 30px;
   width: 350px;
-  height: 450px;
+  height: 500px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
@@ -58,86 +224,149 @@
 }
 
 .chatbot-header {
-  background: #3f51b5;
+  background: #4299e1;
   color: white;
   padding: 15px;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .chatbot-header h4 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 16px;
+}
+
+.chatbot-status {
+  width: 10px;
+  height: 10px;
+  background: #48bb78;
+  border-radius: 50%;
 }
 
 .chatbot-messages {
   flex: 1;
   padding: 15px;
   overflow-y: auto;
-  background: #f9f9f9;
+  background: #f7fafc;
 }
 
 .chatbot-message {
   margin: 8px 0;
-  padding: 10px 15px;
+  padding: 12px 16px;
   border-radius: 18px;
   max-width: 80%;
   line-height: 1.4;
+  font-size: 14px;
+  white-space: pre-line;
 }
 
 .chatbot-message.bot {
   background: white;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #e2e8f0;
   align-self: flex-start;
   border-bottom-left-radius: 4px;
 }
 
 .chatbot-message.user {
-  background: #3f51b5;
+  background: #4299e1;
   color: white;
   align-self: flex-end;
   border-bottom-right-radius: 4px;
 }
 
+.chatbot-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.suggestion-btn {
+  background: rgba(66, 153, 225, 0.1);
+  color: #4299e1;
+  border: none;
+  border-radius: 15px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.suggestion-btn:hover {
+  background: rgba(66, 153, 225, 0.2);
+}
+
 .chatbot-input {
   display: flex;
   padding: 10px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #e2e8f0;
   background: white;
 }
 
 .chatbot-input input {
   flex: 1;
-  padding: 10px 15px;
-  border: 1px solid #ddd;
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
   outline: none;
-  margin-right: 10px;
+  font-size: 14px;
 }
 
 .chatbot-input input:focus {
-  border-color: #3f51b5;
+  border-color: #4299e1;
 }
 
 .chatbot-input button {
-  background: #3f51b5;
+  background: #4299e1;
   color: white;
   border: none;
-  border-radius: 20px;
-  padding: 0 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.2s;
 }
 
 .chatbot-input button:hover {
-  background: #303f9f;
+  background: #3182ce;
 }
 
-/* Responsive */
+.chatbot-input button:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
+}
+
+.send-icon {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
   .chatbot-window {
     width: 90%;
     right: 5%;
     height: 60vh;
     bottom: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-container {
+    padding: 15px;
   }
 }
