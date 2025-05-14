@@ -58,6 +58,14 @@ const FreelancerNavBar = () => {
           >
             👤 Mon profil
           </Link>
+
+          <Link 
+            to="/freelancer/match"  
+            className={activeTab === 'match' ? 'active' : ''}
+          >
+            🤝 Matching intelligent
+          </Link>
+          
         </div>
 
         <button className="logout-button" onClick={handleLogout}>Déconnexion</button>
