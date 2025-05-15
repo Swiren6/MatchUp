@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import{Card,CardContent} from '@mui/material';
+import { Card, CardContent } from '@mui/material';
 
 const OfferForm = ({ onClose, onSave }) => {
   const [offer, setOffer] = useState({
@@ -11,7 +11,7 @@ const OfferForm = ({ onClose, onSave }) => {
     status: 'Brouillon'
   });
 
-  // Animation du titre
+  // Animation du titre (ne s'exécute qu'une fois au montage)
   const [animatedTitle, setAnimatedTitle] = useState('');
   const fullTitle = "Nouvelle Offre d'Emploi";
   
@@ -37,19 +37,14 @@ const OfferForm = ({ onClose, onSave }) => {
     });
   };
 
-  // Animation de chargement des mots
+  // Composant WordReveal modifié pour ne pas se réinitialiser
   const WordReveal = ({ children }) => {
-    const [visible, setVisible] = useState(false);
+    const [visible] = useState(true); // Toujours visible après le premier rendu
     
-    useEffect(() => {
-      setVisible(true);
-    }, []);
-
     return (
       <span style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(10px)',
-        transition: 'all 0.3s ease-out',
+        opacity: 1,
+        transform: 'translateY(0)',
         display: 'inline-block'
       }}>
         {children}
@@ -63,7 +58,9 @@ const OfferForm = ({ onClose, onSave }) => {
         <div className="modal-header">
           <h2 className="modal-title">
             {animatedTitle}
-            <span className="typing-cursor">|</span>
+            {animatedTitle.length < fullTitle.length && (
+              <span className="typing-cursor">|</span>
+            )}
           </h2>
           <button 
             className="close-btn" 
@@ -85,7 +82,7 @@ const OfferForm = ({ onClose, onSave }) => {
               onChange={(e) => setOffer({...offer, title: e.target.value})}
               required
               placeholder="Ex: Développeur React Senior"
-              className="input-animate"
+              className="form-input" // Changé de input-animate à form-input
             />
           </div>
 
@@ -99,7 +96,7 @@ const OfferForm = ({ onClose, onSave }) => {
               rows={5}
               required
               placeholder="Décrivez en détail l'offre..."
-              className="input-animate"
+              className="form-input" // Changé de input-animate à form-input
             />
             <div className="char-count">
               {offer.description.length}/500 caractères
@@ -116,7 +113,7 @@ const OfferForm = ({ onClose, onSave }) => {
                 value={offer.location}
                 onChange={(e) => setOffer({...offer, location: e.target.value})}
                 placeholder="Ex: Paris, Remote"
-                className="input-animate"
+                className="form-input" // Changé de input-animate à form-input
               />
             </div>
 
@@ -129,10 +126,10 @@ const OfferForm = ({ onClose, onSave }) => {
                   type="text"
                   value={offer.budget}
                   onChange={(e) => setOffer({...offer, budget: e.target.value})}
-                  placeholder="Ex: 50-60k€"
-                  className="input-animate"
+                  placeholder="Ex: 3000-4000" 
+                  className="form-input" // Changé de input-animate à form-input
                 />
-                <span className="input-symbol">€</span>
+                <span className="input-symbol">DT</span>
               </div>
             </div>
           </div>
@@ -147,7 +144,7 @@ const OfferForm = ({ onClose, onSave }) => {
               value={offer.skills}
               onChange={(e) => setOffer({...offer, skills: e.target.value})}
               placeholder="Ex: React, Node.js, TypeScript"
-              className="input-animate"
+              className="form-input" // Changé de input-animate à form-input
             />
             <div className="skills-preview">
               {offer.skills.split(',').filter(Boolean).map((skill, index) => (

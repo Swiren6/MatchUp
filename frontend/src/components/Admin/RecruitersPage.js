@@ -1,258 +1,893 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Box,
-  Typography,
   Card,
   CardContent,
+  Typography,
   Grid,
   Avatar,
   Chip,
   Button,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
+  IconButton,
+  Box,
+  TextField,
+  InputAdornment,
+  Badge,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TablePagination,
+  LinearProgress,
+  CircularProgress,
+  Tooltip,
+  Menu,
+  MenuItem,
+  ListItemIcon,
   Divider,
-  CircularProgress
+  useTheme
 } from '@mui/material';
 import {
-  Work as WorkIcon,
   Person as PersonIcon,
-  ExpandMore as ExpandMoreIcon,
   Business as BusinessIcon,
-  People as PeopleIcon,
-  Description as DescriptionIcon
+  Search as SearchIcon,
+  FilterList as FilterListIcon,
+  MoreVert as MoreVertIcon,
+  Edit as EditIcon,
+  Delete as DeleteIcon,
+  Email as EmailIcon,
+  CheckCircle as CheckCircleIcon,
+  Warning as WarningIcon,
+  ArrowUpward as ArrowUpwardIcon,
+  ArrowDownward as ArrowDownwardIcon,
+  Refresh as RefreshIcon,
+  Add as AddIcon,
+  Star as StarIcon,
+  Work as WorkIcon,
+  LocationOn as LocationIcon,
+  School as EducationIcon,
+  Schedule as ExperienceIcon
 } from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
 
-// Données mock (à remplacer par votre API)
-const mockOffers = [
+// =============== Styles personnalisés ===============
+const PremiumCard = styled(Card)(({ theme }) => ({
+  borderRadius: '16px',
+  boxShadow: '0 8px 32px rgba(0,0,0,0.05)',
+  transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+  background: theme.palette.background.paper,
+  border: '1px solid rgba(255,255,255,0.1)',
+  '&:hover': {
+    transform: 'translateY(-5px)',
+    boxShadow: '0 12px 40px rgba(0,0,0,0.1)'
+  }
+}));
+
+const StatusBadge = styled(Badge)(({ theme, status }) => ({
+  '& .MuiBadge-badge': {
+    backgroundColor: status === 'active' ? theme.palette.success.main : theme.palette.error.main,
+    color: theme.palette.common.white,
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    width: 14,
+    height: 14,
+    borderRadius: '50%'
+  }
+}));
+
+const PremiumTableHead = styled(TableHead)(({ theme }) => ({
+  background: `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
+  '& .MuiTableCell-head': {
+    color: theme.palette.common.white,
+    fontWeight: 600,
+    fontSize: '0.85rem',
+    letterSpacing: '0.5px',
+    textTransform: 'uppercase',
+    borderBottom: 'none',
+    padding: '16px 24px',
+    '&:hover': {
+      background: 'rgba(255,255,255,0.15)',
+      transition: 'all 0.3s ease'
+    },
+    '&:first-of-type': {
+      borderTopLeftRadius: '12px'
+    },
+    '&:last-of-type': {
+      borderTopRightRadius: '12px'
+    }
+  }
+}));
+
+const HighlightRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(even)': {
+    backgroundColor: theme.palette.action.hover
+  },
+  '&:hover': {
+    backgroundColor: theme.palette.action.selected,
+    '& .MuiTableCell-body': {
+      color: theme.palette.text.primary,
+      fontWeight: 500
+    }
+  }
+}));
+
+// =============== Données adaptées aux recruteurs ===============
+const candidatesData = [
   {
     id: 1,
-    title: "Développeur React Senior",
-    description: "Nous recherchons un développeur React expérimenté pour notre équipe frontend.",
-    recruiter: {
-      id: 101,
-      name: "TechCorp",
-      email: "recrutement@techcorp.com",
-      avatar: "/recruiters/techcorp.jpg"
-    },
-    postulations: [
-      {
-        freelancer: {
-          id: 201,
-          name: "Jean Dupont",
-          email: "jean.dupont@example.com",
-          skills: ["React", "Node.js", "TypeScript"]
-        },
-        date: "2023-05-15",
-        status: "En attente"
-      },
-      {
-        freelancer: {
-          id: 202,
-          name: "Marie Martin",
-          email: "marie.martin@example.com",
-          skills: ["React", "Redux", "Jest"]
-        },
-        date: "2023-05-16",
-        status: "En revue"
-      }
-    ],
-    createdAt: "2023-05-10",
-    status: "Active"
+    name: 'Jean Dupont',
+    email: 'jean.dupont@example.com',
+    position: 'Développeur Fullstack',
+    status: 'disponible',
+    lastUpdate: '2023-06-15',
+    skills: ['React', 'Node.js', 'TypeScript', 'GraphQL'],
+    avatar: '/avatars/1.jpg',
+    verified: true,
+    experience: 5,
+    location: 'Paris, France',
+    education: "Master en Informatique",
+    salaryExpectation: '60-70k',
+    noticePeriod: '1 mois',
+    lastActive: 'Aujourd\'hui'
   },
   {
     id: 2,
-    title: "Designer UI/UX",
-    description: "Poste pour designer d'interface avec expérience en Figma et recherche utilisateur.",
-    recruiter: {
-      id: 102,
-      name: "DesignStudio",
-      email: "contact@designstudio.com",
-      avatar: "/recruiters/designstudio.jpg"
-    },
-    postulations: [
-      {
-        freelancer: {
-          id: 203,
-          name: "Sophie Leroy",
-          email: "sophie.leroy@example.com",
-          skills: ["Figma", "UX Research", "Prototypage"]
-        },
-        date: "2023-05-18",
-        status: "Accepté"
-      }
-    ],
-    createdAt: "2023-05-12",
-    status: "Active"
+    name: 'Marie Lambert',
+    email: 'marie.lambert@example.com',
+    position: 'Designer UX/UI',
+    status: 'en recherche',
+    lastUpdate: '2023-06-20',
+    skills: ['Figma', 'Adobe XD', 'User Research', 'Prototyping'],
+    avatar: '/avatars/2.jpg',
+    verified: true,
+    experience: 3,
+    location: 'Lyon, France',
+    education: "Bachelor en Design",
+    salaryExpectation: '45-55k',
+    noticePeriod: '2 semaines',
+    lastActive: 'Hier'
+  },
+  {
+    id: 3,
+    name: 'Thomas Martin',
+    email: 'thomas.martin@example.com',
+    position: 'DevOps Engineer',
+    status: 'disponible',
+    lastUpdate: '2023-06-18',
+    skills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD'],
+    avatar: '/avatars/3.jpg',
+    verified: false,
+    experience: 4,
+    location: 'Toulouse, France',
+    education: "Ingénieur Informatique",
+    salaryExpectation: '65-75k',
+    noticePeriod: '3 semaines',
+    lastActive: 'Il y a 2 jours'
+  },
+  {
+    id: 4,
+    name: 'Sophie Dubois',
+    email: 'sophie.dubois@example.com',
+    position: 'Product Manager',
+    status: 'en poste',
+    lastUpdate: '2023-04-10',
+    skills: ['Agile', 'Scrum', 'Product Strategy', 'Roadmapping'],
+    avatar: '/avatars/4.jpg',
+    verified: true,
+    experience: 7,
+    location: 'Bordeaux, France',
+    education: "MBA",
+    salaryExpectation: '80-90k',
+    noticePeriod: '2 mois',
+    lastActive: 'Il y a 1 semaine'
+  },
+  {
+    id: 5,
+    name: 'Alexandre Petit',
+    email: 'alex.petit@example.com',
+    position: 'Data Scientist',
+    status: 'disponible',
+    lastUpdate: '2023-06-22',
+    skills: ['Python', 'Machine Learning', 'TensorFlow', 'Data Visualization'],
+    avatar: '/avatars/5.jpg',
+    verified: true,
+    experience: 4,
+    location: 'Nantes, France',
+    education: "PhD en Data Science",
+    salaryExpectation: '70-85k',
+    noticePeriod: '1 mois',
+    lastActive: 'Aujourd\'hui'
+  },
+  {
+    id: 6,
+    name: 'Élodie Rousseau',
+    email: 'elodie.r@example.com',
+    position: 'Frontend Developer',
+    status: 'en recherche',
+    lastUpdate: '2023-06-21',
+    skills: ['React', 'Vue.js', 'CSS-in-JS', 'Accessibility'],
+    avatar: '/avatars/6.jpg',
+    verified: false,
+    experience: 2,
+    location: 'Lille, France',
+    education: "Licence en Informatique",
+    salaryExpectation: '40-50k',
+    noticePeriod: 'Immédiat',
+    lastActive: 'Hier'
+  },
+  {
+    id: 7,
+    name: 'Nicolas Lefevre',
+    email: 'nico.lefevre@example.com',
+    position: 'Backend Developer',
+    status: 'en poste',
+    lastUpdate: '2023-03-15',
+    skills: ['Java', 'Spring Boot', 'Microservices', 'SQL'],
+    avatar: '/avatars/7.jpg',
+    verified: true,
+    experience: 6,
+    location: 'Marseille, France',
+    education: "Master en Génie Logiciel",
+    salaryExpectation: '65-75k',
+    noticePeriod: '1 mois',
+    lastActive: 'Il y a 3 jours'
+  },
+  {
+    id: 8,
+    name: 'Camille Bernard',
+    email: 'camille.b@example.com',
+    position: 'QA Engineer',
+    status: 'disponible',
+    lastUpdate: '2023-06-19',
+    skills: ['Automated Testing', 'Selenium', 'Jest', 'Cypress'],
+    avatar: '/avatars/8.jpg',
+    verified: true,
+    experience: 3,
+    location: 'Strasbourg, France',
+    education: "Master en Qualité Logicielle",
+    salaryExpectation: '45-55k',
+    noticePeriod: '2 semaines',
+    lastActive: 'Il y a 2 jours'
+  },
+  {
+    id: 9,
+    name: 'Lucas Moreau',
+    email: 'lucas.moreau@example.com',
+    position: 'Mobile Developer',
+    status: 'en recherche',
+    lastUpdate: '2023-06-17',
+    skills: ['React Native', 'Flutter', 'iOS', 'Android'],
+    avatar: '/avatars/9.jpg',
+    verified: false,
+    experience: 3,
+    location: 'Nice, France',
+    education: "Licence Professionnelle",
+    salaryExpectation: '50-60k',
+    noticePeriod: '1 mois',
+    lastActive: 'Il y a 3 jours'
+  },
+  {
+    id: 10,
+    name: 'Amélie Girard',
+    email: 'amelie.g@example.com',
+    position: 'Technical Writer',
+    status: 'en poste',
+    lastUpdate: '2023-01-25',
+    skills: ['Documentation', 'Markdown', 'API Guides', 'Technical Communication'],
+    avatar: '/avatars/10.jpg',
+    verified: true,
+    experience: 5,
+    location: 'Rennes, France',
+    education: "Master en Communication Technique",
+    salaryExpectation: '55-65k',
+    noticePeriod: '2 mois',
+    lastActive: 'Il y a 1 semaine'
   }
 ];
 
-const RecruitersPage = () => {
-  const [offers, setOffers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [expandedOffer, setExpandedOffer] = useState(null);
-
-  useEffect(() => {
-    // Simuler un appel API
-    const fetchOffers = async () => {
-      try {
-        setLoading(true);
-        // Ici vous ferez un vrai appel API :
-        // const response = await axios.get('/api/offers');
-        // setOffers(response.data);
-        
-        // Pour l'instant on utilise les mock data
-        setOffers(mockOffers);
-      } catch (error) {
-        console.error("Erreur lors du chargement des offres:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchOffers();
-  }, []);
-
-  const handleExpandOffer = (offerId) => {
-    setExpandedOffer(expandedOffer === offerId ? null : offerId);
-  };
-
-  if (loading) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-        <CircularProgress size={60} />
-      </Box>
-    );
-  }
-
+// =============== Composants ===============
+const MatchIndicator = ({ value }) => {
+  const theme = useTheme();
+  const color = value >= 80 ? 'success' : value >= 60 ? 'warning' : 'error';
+  
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
-        <WorkIcon sx={{ mr: 2, fontSize: '2rem' }} />
-        Gestion des Recruteurs 
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+      <Box sx={{ width: '100%' }}>
+        <LinearProgress 
+          variant="determinate" 
+          value={value} 
+          color={color}
+          sx={{ 
+            height: 6,
+            borderRadius: 3,
+            backgroundColor: theme.palette.action.hover
+          }}
+        />
+      </Box>
+      <Typography variant="body2" color="text.secondary" sx={{ minWidth: 30 }}>
+        {value}%
       </Typography>
-
-      <Grid container spacing={3}>
-        {offers.map((offer) => (
-          <Grid item xs={12} key={offer.id}>
-            <Card elevation={3}>
-              <CardContent>
-                <Box display="flex" justifyContent="space-between" alignItems="center">
-                  <Box>
-                    <Typography variant="h5" component="div">
-                      {offer.title}
-                    </Typography>
-                    <Box display="flex" alignItems="center" mt={1} mb={2}>
-                      <BusinessIcon color="action" sx={{ mr: 1 }} />
-                      <Typography variant="body1" color="text.secondary">
-                        Publiée par: {offer.recruiter.name}
-                      </Typography>
-                    </Box>
-                  </Box>
-                  
-                  <Box display="flex" alignItems="center">
-                    <Chip 
-                      label={`${offer.postulations.length} postulation(s)`}
-                      color="primary"
-                      variant="outlined"
-                      sx={{ mr: 2 }}
-                    />
-                    <Button
-                      variant="outlined"
-                      onClick={() => handleExpandOffer(offer.id)}
-                      endIcon={<ExpandMoreIcon />}
-                    >
-                      Détails
-                    </Button>
-                  </Box>
-                </Box>
-
-                <Accordion expanded={expandedOffer === offer.id} onChange={() => handleExpandOffer(offer.id)}>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>Détails complets de l'offre</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Box mb={3}>
-                      <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
-                        <DescriptionIcon sx={{ mr: 1 }} />
-                        Description de l'offre
-                      </Typography>
-                      <Typography paragraph>
-                        {offer.description}
-                      </Typography>
-                      
-                      <Box display="flex" gap={2} mt={2}>
-                        <Chip label={`Statut: ${offer.status}`} />
-                        <Chip label={`Date: ${new Date(offer.createdAt).toLocaleDateString()}`} />
-                      </Box>
-                    </Box>
-
-                    <Divider sx={{ my: 2 }} />
-
-                    <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
-                      <PeopleIcon sx={{ mr: 1 }} />
-                      Freelances ayant postulé ({offer.postulations.length})
-                    </Typography>
-
-                    {offer.postulations.length > 0 ? (
-                      <Grid container spacing={2}>
-                        {offer.postulations.map((postulation, index) => (
-                          <Grid item xs={12} sm={6} md={4} key={index}>
-                            <Card variant="outlined">
-                              <CardContent>
-                                <Box display="flex" alignItems="center" mb={1}>
-                                  <Avatar src={`/freelancers/${postulation.freelancer.id}.jpg`} sx={{ mr: 2 }}>
-                                    <PersonIcon />
-                                  </Avatar>
-                                  <Box>
-                                    <Typography variant="subtitle1">{postulation.freelancer.name}</Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                      {postulation.freelancer.email}
-                                    </Typography>
-                                  </Box>
-                                </Box>
-                                
-                                <Box mt={1}>
-                                  <Typography variant="body2">Compétences:</Typography>
-                                  <Box display="flex" flexWrap="wrap" gap={0.5} mt={0.5}>
-                                    {postulation.freelancer.skills.map((skill, i) => (
-                                      <Chip key={i} label={skill} size="small" />
-                                    ))}
-                                  </Box>
-                                </Box>
-                                
-                                <Box mt={2} display="flex" justifyContent="space-between">
-                                  <Typography variant="caption">
-                                    Postulé le: {new Date(postulation.date).toLocaleDateString()}
-                                  </Typography>
-                                  <Chip 
-                                    label={postulation.status} 
-                                    size="small" 
-                                    color={
-                                      postulation.status === "Accepté" ? "success" : 
-                                      postulation.status === "Refusé" ? "error" : "default"
-                                    }
-                                  />
-                                </Box>
-                              </CardContent>
-                            </Card>
-                          </Grid>
-                        ))}
-                      </Grid>
-                    ) : (
-                      <Typography color="text.secondary" fontStyle="italic">
-                        Aucun freelance n'a encore postulé à cette offre.
-                      </Typography>
-                    )}
-                  </AccordionDetails>
-                </Accordion>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
     </Box>
   );
 };
 
-export default RecruitersPage;
+const RecruitersDashboard = () => {
+  const [candidates, setCandidates] = useState([]);
+  const [filteredCandidates, setFilteredCandidates] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [locationFilter, setLocationFilter] = useState('all');
+  const [experienceFilter, setExperienceFilter] = useState('all');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('name');
+  const theme = useTheme();
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setCandidates(candidatesData);
+      setFilteredCandidates(candidatesData);
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    let result = candidates;
+    
+    if (searchTerm) {
+      result = result.filter(candidate => 
+        candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        candidate.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        candidate.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        candidate.skills.some(skill => skill.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+    
+    if (statusFilter !== 'all') {
+      result = result.filter(candidate => candidate.status === statusFilter);
+    }
+    
+    if (locationFilter !== 'all') {
+      result = result.filter(candidate => candidate.location.includes(locationFilter));
+    }
+    
+    if (experienceFilter !== 'all') {
+      const [min, max] = experienceFilter.split('-').map(Number);
+      result = result.filter(candidate => {
+        const exp = candidate.experience;
+        return exp >= min && (max ? exp <= max : true);
+      });
+    }
+    
+    setFilteredCandidates(result);
+    setPage(0);
+  }, [searchTerm, statusFilter, locationFilter, experienceFilter, candidates]);
+
+  const handleRequestSort = (property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+
+  const sortedCandidates = filteredCandidates.sort((a, b) => {
+    if (a[orderBy] < b[orderBy]) return order === 'asc' ? -1 : 1;
+    if (a[orderBy] > b[orderBy]) return order === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  const handleMenuOpen = (event, candidate) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedCandidate(candidate);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    setSelectedCandidate(null);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const columns = [
+    { id: 'name', label: 'Candidat', minWidth: 220 },
+    { id: 'position', label: 'Poste recherché', minWidth: 180 },
+    { id: 'status', label: 'Disponibilité', minWidth: 120 },
+    { id: 'experience', label: 'Expérience (ans)', minWidth: 120 },
+    { id: 'location', label: 'Localisation', minWidth: 140 },
+    { id: 'match', label: 'Correspondance', minWidth: 150 },
+    { id: 'actions', label: '', minWidth: 100, align: 'right' }
+  ];
+
+  // Calcul de la correspondance fictive (pour l'exemple)
+  const calculateMatch = (candidate) => {
+    // Simulation basée sur l'expérience et le statut
+    let match = 50;
+    if (candidate.status === 'disponible') match += 20;
+    if (candidate.status === 'en recherche') match += 15;
+    if (candidate.experience >= 5) match += 15;
+    if (candidate.verified) match += 10;
+    return Math.min(match, 100);
+  };
+
+  return (
+    <Box sx={{ p: 3 }}>
+      {/* Header */}
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        mb: 4
+      }}>
+        <Typography variant="h4" sx={{ 
+          fontWeight: 700,
+          background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent'
+        }}>
+          <WorkIcon sx={{ mr: 2, verticalAlign: 'middle' }} />
+          Tableau de bord Recruteur
+        </Typography>
+        
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          sx={{ 
+            borderRadius: '12px',
+            px: 3,
+            py: 1,
+            textTransform: 'none',
+            fontWeight: 600,
+            boxShadow: '0 4px 14px rgba(0,0,0,0.1)',
+            '&:hover': {
+              boxShadow: '0 6px 20px rgba(0,0,0,0.15)'
+            }
+          }}
+        >
+          Nouvelle offre
+        </Button>
+      </Box>
+
+      {/* Barre de filtres */}
+      <PremiumCard sx={{ mb: 4 }}>
+        <CardContent sx={{ p: 3 }}>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs={12} md={4}>
+              <TextField
+                fullWidth
+                variant="outlined"
+                size="small"
+                placeholder="Rechercher candidats..."
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon color="primary" />
+                    </InputAdornment>
+                  ),
+                  sx: { 
+                    borderRadius: '12px',
+                    background: theme.palette.background.default
+                  }
+                }}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </Grid>
+            
+            <Grid item xs={12} md={2}>
+              <TextField
+                select
+                fullWidth
+                variant="outlined"
+                size="small"
+                label="Disponibilité"
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                sx={{ 
+                  borderRadius: '12px',
+                  '& .MuiOutlinedInput-root': {
+                    background: theme.palette.background.default
+                  }
+                }}
+              >
+                <MenuItem value="all">Tous</MenuItem>
+                <MenuItem value="disponible">Disponible</MenuItem>
+                <MenuItem value="en recherche">En recherche</MenuItem>
+                <MenuItem value="en poste">En poste</MenuItem>
+              </TextField>
+            </Grid>
+            
+            <Grid item xs={12} md={2}>
+              <TextField
+                select
+                fullWidth
+                variant="outlined"
+                size="small"
+                label="Localisation"
+                value={locationFilter}
+                onChange={(e) => setLocationFilter(e.target.value)}
+                sx={{ 
+                  borderRadius: '12px',
+                  '& .MuiOutlinedInput-root': {
+                    background: theme.palette.background.default
+                  }
+                }}
+              >
+                <MenuItem value="all">Toutes</MenuItem>
+                <MenuItem value="Paris">Paris</MenuItem>
+                <MenuItem value="Lyon">Lyon</MenuItem>
+                <MenuItem value="Marseille">Marseille</MenuItem>
+                <MenuItem value="Toulouse">Toulouse</MenuItem>
+                <MenuItem value="Nantes">Nantes</MenuItem>
+              </TextField>
+            </Grid>
+            
+            <Grid item xs={12} md={2}>
+              <TextField
+                select
+                fullWidth
+                variant="outlined"
+                size="small"
+                label="Expérience"
+                value={experienceFilter}
+                onChange={(e) => setExperienceFilter(e.target.value)}
+                sx={{ 
+                  borderRadius: '12px',
+                  '& .MuiOutlinedInput-root': {
+                    background: theme.palette.background.default
+                  }
+                }}
+              >
+                <MenuItem value="all">Tous</MenuItem>
+                <MenuItem value="0-2">0-2 ans</MenuItem>
+                <MenuItem value="3-5">3-5 ans</MenuItem>
+                <MenuItem value="6-10">6-10 ans</MenuItem>
+                <MenuItem value="10">10+ ans</MenuItem>
+              </TextField>
+            </Grid>
+            
+            <Grid item xs={12} md={2}>
+              <Button
+                fullWidth
+                variant="outlined"
+                startIcon={<RefreshIcon />}
+                sx={{ 
+                  borderRadius: '12px',
+                  height: '40px',
+                  borderWidth: '2px',
+                  '&:hover': {
+                    borderWidth: '2px'
+                  }
+                }}
+                onClick={() => {
+                  setSearchTerm('');
+                  setStatusFilter('all');
+                  setLocationFilter('all');
+                  setExperienceFilter('all');
+                }}
+              >
+                Réinitialiser
+              </Button>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </PremiumCard>
+
+      {/* Statistiques */}
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        {[
+          { title: 'Candidats disponibles', value: candidates.filter(c => c.status === 'disponible').length, icon: <PersonIcon />, color: 'success' },
+          { title: 'Candidats vérifiés', value: candidates.filter(c => c.verified).length, icon: <CheckCircleIcon />, color: 'primary' },
+          { title: 'Expérience moyenne', value: (candidates.reduce((acc, c) => acc + c.experience, 0) / candidates.length), icon: <ExperienceIcon />, color: 'warning' },
+          { title: 'Nouvelles candidatures', value: candidates.filter(c => c.lastActive === 'Aujourd\'hui' || c.lastActive === 'Hier').length, icon: <AddIcon />, color: 'secondary' }
+        ].map((stat, index) => (
+          <Grid item xs={12} sm={6} md={3} key={index}>
+            <PremiumCard>
+              <CardContent sx={{ p: 3 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Box>
+                    <Typography color="text.secondary" variant="body2" sx={{ mb: 1 }}>
+                      {stat.title}
+                    </Typography>
+                    <Typography variant="h4" sx={{ fontWeight: 700 }}>
+                      {typeof stat.value === 'number' ? stat.value.toFixed(stat.value % 1 === 0 ? 0 : 1) : stat.value}
+                    </Typography>
+                  </Box>
+                  <Box sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: '12px',
+                    background: theme.palette[stat.color].light,
+                    color: theme.palette[stat.color].dark,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    {stat.icon}
+                  </Box>
+                </Box>
+              </CardContent>
+            </PremiumCard>
+          </Grid>
+        ))}
+      </Grid>
+
+      {/* Tableau principal */}
+      <PremiumCard>
+        <TableContainer>
+          <Table>
+            <PremiumTableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    onClick={() => handleRequestSort(column.id)}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      {column.label}
+                      {orderBy === column.id ? (
+                        <Box component="span" sx={{ ml: 1 }}>
+                          {order === 'asc' ? (
+                            <ArrowUpwardIcon fontSize="small" sx={{ opacity: 0.8 }} />
+                          ) : (
+                            <ArrowDownwardIcon fontSize="small" sx={{ opacity: 0.8 }} />
+                          )}
+                        </Box>
+                      ) : null}
+                    </Box>
+                  </TableCell>
+                ))}
+              </TableRow>
+            </PremiumTableHead>
+            
+            <TableBody>
+              {isLoading ? (
+                <TableRow>
+                  <TableCell colSpan={columns.length} align="center" sx={{ py: 6 }}>
+                    <CircularProgress size={60} thickness={4} />
+                  </TableCell>
+                </TableRow>
+              ) : sortedCandidates.length > 0 ? (
+                sortedCandidates
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((candidate) => (
+                    <HighlightRow hover key={candidate.id}>
+                      {/* Colonne Candidat */}
+                      <TableCell sx={{ py: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                          <StatusBadge
+                            overlap="circular"
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                            variant="dot"
+                            status={candidate.status === 'en poste' ? 'inactive' : 'active'}
+                          >
+                            <Avatar 
+                              src={candidate.avatar} 
+                              sx={{ 
+                                width: 48, 
+                                height: 48,
+                                mr: 2,
+                                border: `2px solid ${candidate.verified ? theme.palette.success.main : theme.palette.divider}`
+                              }}
+                            >
+                              <PersonIcon />
+                            </Avatar>
+                          </StatusBadge>
+                          <Box>
+                            <Typography fontWeight={600} sx={{ display: 'flex', alignItems: 'center' }}>
+                              {candidate.name}
+                              {candidate.verified && (
+                                <CheckCircleIcon color="success" fontSize="small" sx={{ ml: 1 }} />
+                              )}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              {candidate.email}
+                            </Typography>
+                            <Box sx={{ display: 'flex', mt: 0.5 }}>
+                              {candidate.skills.slice(0, 3).map((skill, index) => (
+                                <Chip
+                                  key={index}
+                                  label={skill}
+                                  size="small"
+                                  sx={{ 
+                                    mr: 1,
+                                    borderRadius: '4px',
+                                    fontSize: '0.65rem',
+                                    height: 20
+                                  }}
+                                />
+                              ))}
+                            </Box>
+                          </Box>
+                        </Box>
+                      </TableCell>
+                      
+                      {/* Colonne Poste recherché */}
+                      <TableCell>
+                        <Typography fontWeight={500}>
+                          {candidate.position}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {candidate.salaryExpectation}
+                        </Typography>
+                      </TableCell>
+                      
+                      {/* Colonne Disponibilité */}
+                      <TableCell>
+                        <Chip
+                          label={
+                            candidate.status === 'disponible' ? 'Disponible' : 
+                            candidate.status === 'en recherche' ? 'En recherche' : 'En poste'
+                          }
+                          size="small"
+                          color={
+                            candidate.status === 'disponible' ? 'success' : 
+                            candidate.status === 'en recherche' ? 'warning' : 'error'
+                          }
+                          sx={{
+                            borderRadius: '6px',
+                            fontWeight: 600,
+                            textTransform: 'uppercase',
+                            fontSize: '0.75rem'
+                          }}
+                        />
+                        <Typography variant="caption" display="block" color="text.secondary">
+                          {candidate.noticePeriod}
+                        </Typography>
+                      </TableCell>
+                      
+                      {/* Colonne Expérience */}
+                      <TableCell>
+                        <Typography variant="h6" fontWeight={600}>
+                          {candidate.experience} ans
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {candidate.education}
+                        </Typography>
+                      </TableCell>
+                      
+                      {/* Colonne Localisation */}
+                      <TableCell>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                          <LocationIcon color="primary" fontSize="small" sx={{ mr: 1 }} />
+                          <Typography>
+                            {candidate.location}
+                          </Typography>
+                        </Box>
+                        <Typography variant="caption" color="text.secondary">
+                          Dernière activité: {candidate.lastActive}
+                        </Typography>
+                      </TableCell>
+                      
+                      {/* Colonne Correspondance */}
+                      <TableCell>
+                        <MatchIndicator value={calculateMatch(candidate)} />
+                        <Typography variant="caption" color="text.secondary">
+                          Dernière mise à jour: {new Date(candidate.lastUpdate).toLocaleDateString('fr-FR')}
+                        </Typography>
+                      </TableCell>
+                      
+                      {/* Colonne Actions */}
+                      <TableCell align="right">
+                        <Tooltip title="Actions">
+                          <IconButton
+                            onClick={(e) => handleMenuOpen(e, candidate)}
+                            sx={{
+                              background: theme.palette.action.hover,
+                              '&:hover': {
+                                background: theme.palette.action.selected
+                              }
+                            }}
+                          >
+                            <MoreVertIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
+                    </HighlightRow>
+                  ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length} align="center" sx={{ py: 6 }}>
+                    <Box sx={{ textAlign: 'center' }}>
+                      <SearchIcon sx={{ fontSize: 60, color: 'text.disabled', mb: 2 }} />
+                      <Typography variant="h6" color="text.secondary">
+                        Aucun candidat trouvé
+                      </Typography>
+                      <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>
+                        Essayez de modifier vos critères de recherche
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={sortedCandidates.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage="Lignes par page :"
+          labelDisplayedRows={({ from, to, count }) => `${from}-${to} sur ${count}`}
+          sx={{ 
+            borderTop: '1px solid',
+            borderColor: 'divider',
+            px: 3,
+            py: 2
+          }}
+        />
+      </PremiumCard>
+
+      {/* Menu contextuel */}
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+        elevation={4}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        PaperProps={{
+          sx: {
+            borderRadius: '12px',
+            minWidth: 200,
+            boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+            border: '1px solid rgba(0,0,0,0.05)'
+          }
+        }}
+      >
+        <MenuItem onClick={handleMenuClose}>
+          <ListItemIcon>
+            <PersonIcon fontSize="small" />
+          </ListItemIcon>
+          Voir le profil
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose}>
+          <ListItemIcon>
+            <EmailIcon fontSize="small" />
+          </ListItemIcon>
+          Contacter
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose}>
+          <ListItemIcon>
+            <WorkIcon fontSize="small" />
+          </ListItemIcon>
+          Proposer un poste
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={handleMenuClose}>
+          <ListItemIcon>
+            <EditIcon fontSize="small" />
+          </ListItemIcon>
+          Ajouter une note
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose} sx={{ color: 'error.main' }}>
+          <ListItemIcon>
+            <DeleteIcon fontSize="small" color="error" />
+          </ListItemIcon>
+          Exclure
+        </MenuItem>
+      </Menu>
+    </Box>
+  );
+};
+
+export default RecruitersDashboard;

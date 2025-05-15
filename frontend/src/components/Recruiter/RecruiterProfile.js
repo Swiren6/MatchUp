@@ -3,21 +3,36 @@ import './RecruiterProfile.css'; // Import your CSS file for styling
 
 const RecruiterProfile = () => {
   const [profile, setProfile] = useState({
+
+    firstName: "Safa",
+    lastName: "Mathlouthi",
+    email: "safa.mathlouthi@entreprise.com",
+    phone: "+216 12 345 678",
+
     firstName: "Sirine",
     lastName: "Abdelkhalek",
     email: "Sirine.Abdelkhalek@entreprise.com",
     phone: "+216 23 45 67 89",
+
     company: "TechSolutions Inc.",
     position: "Responsable Recrutement",
     bio: "Je recrute les meilleurs talents tech pour notre entreprise.",
     skills: ["Recrutement IT", "Entretiens techniques", "Sourcing"],
+
+    location: "Tunis, Tunisie",
+
     location: "Tunis, Lac2",
+
     photo: "",
     github: "",
     cvLink: "",
     educations: [
       {
+
+        institution: "Université Tunis",
+
         institution: "Université Tunis-Dauphine",
+
         degree: "Master en RH",
         fieldOfStudy: "Gestion des Ressources Humaines",
         from: "2010-09-01",
@@ -36,8 +51,13 @@ const RecruiterProfile = () => {
       }
     ],
     socials: {
+
+      linkedin: "linkedin.com/in/safamathlouthi",
+      twitter: "twitter.com/safamathlouthi"
+
       linkedin: "linkedin.com/in/SirineAbdelkhalek",
       twitter: "twitter.com/SirineAbdelkhalek"
+
     }
   });
 
