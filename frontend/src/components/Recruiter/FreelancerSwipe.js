@@ -5,32 +5,32 @@ const FreelancerSwipe = () => {
   const [freelancers] = useState([
     {
       id: 1,
-      name: "Alex Dubois",
+      name: "Salem BenSalem",
       title: "Développeur React Senior",
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop",
       bio: "Développeur Fullstack avec 5 ans d'expérience en React et Node.js. Passionné par les interfaces utilisateur intuitives.",
       skills: ["React", "TypeScript", "Redux", "Node.js"],
-      rate: "€700/jour",
-      location: "Paris, France"
+      rate: "DT700/jour",
+      location: "Tunis, Tunis"
     },
     {
       id: 2,
-      name: "Sophie Lambert",
+      name: "Safa Mathlouthi",
       title: "UX/UI Designer",
       photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&auto=format&fit=crop",
       bio: "Designer avec une spécialisation en expérience utilisateur. J'aide les startups à créer des produits digitaux mémorables.",
       skills: ["Figma", "Prototypage", "User Research", "UI Animation"],
-      rate: "€550/jour",
-      location: "Lyon, France"
+      rate: "DT 550/jour",
+      location: "Tunis, Tunis"
     },
     {
       id: 3,
-      name: "Thomas Martin",
+      name: "Sara BenAhmed",
       title: "Data Scientist",
       photo: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=500&auto=format&fit=crop",
       bio: "Expert en machine learning et analyse de données. Je transforme les données en insights actionnables.",
       skills: ["Python", "TensorFlow", "SQL", "Data Visualization"],
-      rate: "€800/jour",
+      rate: "DT800/jour",
       location: "Remote"
     }
   ]);

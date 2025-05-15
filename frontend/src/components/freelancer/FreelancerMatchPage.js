@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, AlertTriangle, X, Search, Upload, FileText, Briefcase, Star, ChevronRight } from 'lucide-react';
+import { CheckCircle, AlertTriangle, X, Search, Upload, FileText, Briefcase, Star, ChevronRight, Clock, DollarSign, MapPin, Award } from 'lucide-react';
 
 const FreelancerMatchPage = () => {
   const [skillsInput, setSkillsInput] = useState('');
@@ -21,7 +21,6 @@ const FreelancerMatchPage = () => {
   ]);
   const [selectedSkills, setSelectedSkills] = useState([]);
 
-  // Effet pour nettoyer les notifications après 5 secondes
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => {
@@ -48,48 +47,81 @@ const FreelancerMatchPage = () => {
       setError("Veuillez sélectionner au moins une compétence");
       return;
     }
-
     setLoading(true);
     setError(null);
-
     try {
-      // Simulation d'une requête API
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Données simulées pour la démo
       const mockProjects = [
         {
           id: 1,
           title: "Développement d'application React Native",
-          company: "Tech Innovations Inc.",
+          entreprise: "Sopra HR Software",
+          localisation: "Ariana, Tunisia",
+          contrat: "CDI",
+          niveau: "Débutant",
           description: "Nous cherchons un développeur expérimenté pour nous aider à construire une application mobile cross-platform.",
-          requiredSkills: ['React Native', 'JavaScript', 'UI/UX Design'],
-          budget: "$5,000 - $10,000",
+          requiredSkills: ["React Native", "JavaScript", "UI/UX Design"],
+          budget: "DT5,000 - DT10,000",
           duration: "3-6 mois",
-          matchScore: Math.min(100, selectedSkills.filter(s => ['React Native', 'JavaScript', 'UI/UX Design'].includes(s)).length * 30),
+          matchScore: Math.min(100, selectedSkills.filter(s => ["React Native", "JavaScript", "UI/UX Design"].includes(s)).length * 30),
           posted: "2 jours"
         },
         {
           id: 2,
           title: "API Backend avec Node.js",
-          company: "Data Systems LLC",
+          entreprise: "Vermeg",
+          localisation: "Tunis, Tunisia",
+          contrat: "CDI",
+          niveau: "Confirmé",
           description: "Construction d'une API robuste pour notre nouveau produit SaaS avec intégration MongoDB.",
-          requiredSkills: ['Node.js', 'MongoDB', 'JavaScript', 'AWS'],
-          budget: "$3,000 - $7,000",
+          requiredSkills: ["Node.js", "MongoDB", "JavaScript", "AWS"],
+          budget: "DT3,000 - DT7,000",
           duration: "2-4 mois",
-          matchScore: Math.min(100, selectedSkills.filter(s => ['Node.js', 'MongoDB', 'JavaScript', 'AWS'].includes(s)).length * 25),
+          matchScore: Math.min(100, selectedSkills.filter(s => ["Node.js", "MongoDB", "JavaScript", "AWS"].includes(s)).length * 25),
           posted: "1 semaine"
         },
         {
           id: 3,
           title: "Site E-commerce avec React",
-          company: "ShopGlobal",
+          entreprise: "Wevioo",
+          localisation: "Tunis, Tunisia",
+          contrat: "CDI",
+          niveau: "Intermédiaire",
           description: "Refonte complète de notre plateforme e-commerce avec intégration de paiement.",
-          requiredSkills: ['React', 'JavaScript', 'TypeScript', 'Node.js'],
-          budget: "$8,000 - $15,000",
+          requiredSkills: ["React", "JavaScript", "TypeScript", "Node.js"],
+          budget: "DT8,000 - DT15,000",
           duration: "4-8 mois",
-          matchScore: Math.min(100, selectedSkills.filter(s => ['React', 'JavaScript', 'TypeScript', 'Node.js'].includes(s)).length * 25),
+          matchScore: Math.min(100, selectedSkills.filter(s => ["React", "JavaScript", "TypeScript", "Node.js"].includes(s)).length * 25),
           posted: "3 jours"
+        },
+        {
+          id: 4,
+          title: "Application de Gestion de Projets",
+          entreprise: "Telnet",
+          localisation: "Tunis, Tunisia",
+          contrat: "Freelance",
+          niveau: "Intermédiaire",
+          description: "Développement d'une application web de gestion de projets avec tableau Kanban et suivi du temps.",
+          requiredSkills: ["Vue.js", "Firebase", "JavaScript", "CSS3"],
+          budget: "DT4,000 - DT9,000",
+          duration: "3-5 mois",
+          matchScore: Math.min(100, selectedSkills.filter(s => ["Vue.js", "Firebase", "JavaScript", "CSS3"].includes(s)).length * 25),
+          posted: "5 jours"
+        },
+        {
+          id: 5,
+          title: "Système de Reconnaissance Faciale",
+          entreprise: "BIAT",
+          localisation: "Tunis, Tunisia",
+          contrat: "Stage",
+          niveau: "Débutant",
+          description: "Implémentation d'un système de reconnaissance faciale pour l'authentification des clients.",
+          requiredSkills: ["Python", "OpenCV", "Machine Learning", "Django"],
+          budget: "DT1,500 - DT3,000",
+          duration: "2-3 mois",
+          matchScore: Math.min(100, selectedSkills.filter(s => ["Python", "OpenCV", "Machine Learning", "Django"].includes(s)).length * 25),
+          posted: "1 semaine"
         }
       ];
       
@@ -106,9 +138,7 @@ const FreelancerMatchPage = () => {
       setError("Veuillez uploader votre CV");
       return;
     }
-
     try {
-      // Simulation d'envoi
       await new Promise(r => setTimeout(r, 1500));
       
       setNotification({ 
@@ -130,6 +160,12 @@ const FreelancerMatchPage = () => {
     if (score >= 80) return 'bg-emerald-100 text-emerald-800';
     if (score >= 50) return 'bg-amber-100 text-amber-800';
     return 'bg-rose-100 text-rose-800';
+  };
+
+  const getMatchMessage = (score) => {
+    if (score >= 80) return 'Excellent match!';
+    if (score >= 50) return 'Match correct';
+    return 'Match faible';
   };
 
   return (
@@ -198,7 +234,6 @@ const FreelancerMatchPage = () => {
                   </motion.span>
                 ))}
               </div>
-
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 mb-4">
                 {suggestedSkills
                   .filter(skill => 
@@ -219,7 +254,6 @@ const FreelancerMatchPage = () => {
                   ))}
               </div>
             </div>
-
             <div className="flex justify-center">
               <motion.button
                 type="submit"
@@ -248,7 +282,6 @@ const FreelancerMatchPage = () => {
                 )}
               </motion.button>
             </div>
-
             {error && (
               <motion.div 
                 className="mt-4 p-3 bg-red-50 text-red-700 rounded-lg flex items-center"
@@ -276,7 +309,6 @@ const FreelancerMatchPage = () => {
               </span>
               Projets correspondants à vos compétences
             </h2>
-
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               <AnimatePresence>
                 {projects.map(project => (
@@ -297,12 +329,16 @@ const FreelancerMatchPage = () => {
                         </span>
                       </div>
                       
-                      <p className="text-sm text-gray-500 mb-2 flex items-center">
-                        <span className="bg-gray-100 px-2 py-1 rounded mr-2">{project.company}</span>
-                        <span>• Posté il y a {project.posted}</span>
-                      </p>
+                      <div className="flex items-center text-sm text-gray-500 mb-3">
+                        <span className="font-medium text-gray-700">{project.entreprise}</span>
+                        <span className="mx-2">•</span>
+                        <span className="flex items-center">
+                          <MapPin className="mr-1" size={14} />
+                          {project.localisation}
+                        </span>
+                      </div>
                       
-                      <p className="text-gray-600 mb-4">{project.description}</p>
+                      <p className="text-gray-600 mb-4 text-sm">{project.description}</p>
                       
                       <div className="mb-4">
                         <h4 className="text-sm font-medium text-gray-700 mb-2">Compétences requises:</h4>
@@ -322,22 +358,44 @@ const FreelancerMatchPage = () => {
                         </div>
                       </div>
                       
-                      <div className="flex justify-between text-sm text-gray-500 mb-4">
-                        <span>Budget: {project.budget}</span>
-                        <span>Durée: {project.duration}</span>
+                      <div className="grid grid-cols-2 gap-3 mb-4">
+                        <div className="flex items-center text-sm text-gray-600">
+                          <DollarSign className="mr-1 text-gray-500" size={14} />
+                          <span>{project.budget}</span>
+                        </div>
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Clock className="mr-1 text-gray-500" size={14} />
+                          <span>{project.duration}</span>
+                        </div>
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Award className="mr-1 text-gray-500" size={14} />
+                          <span>{project.niveau}</span>
+                        </div>
+                        <div className="flex items-center text-sm text-gray-600">
+                          <Briefcase className="mr-1 text-gray-500" size={14} />
+                          <span>{project.contrat}</span>
+                        </div>
                       </div>
                       
-                      <button
-                        onClick={() => { setSelectedProject(project); setIsModalOpen(true); }}
-                        disabled={project.matchScore < 50}
-                        className={`w-full flex items-center justify-center py-2 rounded-lg font-medium transition-all ${
-                          project.matchScore < 50
-                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                            : 'bg-blue-600 hover:bg-blue-700 text-white'
-                        }`}
-                      >
-                        Postuler maintenant <ChevronRight className="ml-1" size={16} />
-                      </button>
+                      <div className="space-y-3">
+                        <button
+                          onClick={() => { setSelectedProject(project); setIsModalOpen(true); }}
+                          className={`w-full flex items-center justify-center py-2 rounded-lg font-medium transition-all ${
+                            project.matchScore < 50
+                              ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                              : 'bg-blue-600 hover:bg-blue-700 text-white'
+                          }`}
+                        >
+                          Postuler maintenant <ChevronRight className="ml-1" size={16} />
+                        </button>
+                        
+                        {project.matchScore < 50 && (
+                          <div className="text-xs text-amber-600 flex items-center">
+                            <AlertTriangle className="mr-1" size={14} />
+                            Votre profil ne correspond qu'à {Math.round(project.matchScore)}% des compétences requises
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -398,6 +456,16 @@ const FreelancerMatchPage = () => {
                     <X size={20} />
                   </button>
                 </div>
+                
+                {selectedProject?.matchScore < 50 && (
+                  <div className="bg-amber-50 text-amber-800 p-3 rounded-lg mb-4 flex items-start">
+                    <AlertTriangle className="mr-2 mt-0.5 flex-shrink-0" size={16} />
+                    <div>
+                      <p className="font-medium">Attention: Match faible ({Math.round(selectedProject?.matchScore)}%)</p>
+                      <p className="text-sm">Votre profil ne correspond qu'à {Math.round(selectedProject?.matchScore)}% des compétences requises. Vous pouvez toujours postuler, mais vos chances peuvent être réduites.</p>
+                    </div>
+                  </div>
+                )}
                 
                 <div className="space-y-4">
                   <div>

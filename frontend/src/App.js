@@ -10,11 +10,11 @@ import UserProfile from './components/UserProfile/UserProfile';
 import UsersPage from './components/Admin/UsersPage';
 import OffersPage from './pages/OffersPage';
 import FreelancerSwipe from './components/Recruiter/FreelancerSwipe';
-import ApplyForm from "./pages/ApplyForm";
+// import ApplyForm from "./pages/ApplyForm";
 import RecruiterPage from './pages/RecruiterPage';
 import AdminPage from './pages/AdminPage';
 import FreelancerPage from './pages/FreelancerPage';
-// import SimpleChatbot from './components/Chatbot/SimpleChatbot';
+import SimpleChatbot from './components/Chatbot/SimpleChatbot';
 //import Chat from './components/AI/Chatbot';
 
 
@@ -36,11 +36,11 @@ function App() {
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/offers" element={<OffersPage />} />
         <Route path="/swipe" element={<FreelancerSwipe />} />
-        <Route path="/apply/:offerId" element={<ApplyForm />} />
+        {/* <Route path="/apply/:offerId" element={<ApplyForm />} /> */}
         <Route path="/recruiter/*" element={<RecruiterPage />} />
         <Route path="/admin/*" element={<AdminPage />} />
         <Route path="/freelancer/*" element={<FreelancerPage />} />
-        {/* <Route path="/SimpleChatbot" element={<SimpleChatbot />} /> */}
+        <Route path="/SimpleChatbot" element={<SimpleChatbot />} />
 
         
 

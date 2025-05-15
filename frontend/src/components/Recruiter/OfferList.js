@@ -24,7 +24,7 @@ const OfferList = () => {
           id: 1,
           title: "Développeur Frontend React",
           type: "CDI",
-          location: "Paris",
+          location: "Tunis",
           remote: true,
           salary: "50-60K€",
           date: "15/05/2023",
@@ -38,7 +38,7 @@ const OfferList = () => {
           id: 2,
           title: "UX Designer Senior",
           type: "CDD",
-          location: "Lyon",
+          location: "Nabeul",
           remote: false,
           salary: "45-55K€",
           date: "10/05/2023",
@@ -66,7 +66,7 @@ const OfferList = () => {
           id: 4,
           title: "Product Manager",
           type: "CDI",
-          location: "Bordeaux",
+          location: "Bizerte",
           remote: true,
           salary: "60-75K€",
           date: "18/05/2023",
@@ -150,14 +150,14 @@ const OfferList = () => {
 
   const locationOptions = [
     { value: 'all', label: 'Toutes localisations' },
-    { value: 'Paris', label: 'Paris' },
-    { value: 'Lyon', label: 'Lyon' },
-    { value: 'Bordeaux', label: 'Bordeaux' },
+    { value: 'Tunis', label: 'Tunis' },
+    { value: 'Nabeul', label: 'Nabeul' },
+    { value: 'Bizerte', label: 'Bizerte' },
     { value: 'Remote', label: 'Full Remote' }
   ];
 
   return (
-    <motion.div 
+    <motion.div
       className="dashboard-section"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -171,24 +171,27 @@ const OfferList = () => {
         >
           Mes offres d'emploi
           <span className="offers-count">
-            {filteredOffers.length}/{offers.length} offre{offers.length > 1 ? 's' : ''}
+            {filteredOffers.length}/{offers.length} offre
+            {offers.length > 1 ? "s" : ""}
           </span>
         </motion.h2>
 
         <div className="controls">
           <div className="filter-group">
-            <motion.div 
+            <motion.div
               className="filter-selector"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
               <label>Statut :</label>
-              <select 
+              <select
                 value={filters.status}
-                onChange={(e) => setFilters({...filters, status: e.target.value})}
+                onChange={(e) =>
+                  setFilters({ ...filters, status: e.target.value })
+                }
               >
-                {statusOptions.map(option => (
+                {statusOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
@@ -196,18 +199,20 @@ const OfferList = () => {
               </select>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="filter-selector"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
               <label>Type :</label>
-              <select 
+              <select
                 value={filters.type}
-                onChange={(e) => setFilters({...filters, type: e.target.value})}
+                onChange={(e) =>
+                  setFilters({ ...filters, type: e.target.value })
+                }
               >
-                {typeOptions.map(option => (
+                {typeOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
@@ -215,18 +220,20 @@ const OfferList = () => {
               </select>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="filter-selector"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
               <label>Localisation :</label>
-              <select 
+              <select
                 value={filters.location}
-                onChange={(e) => setFilters({...filters, location: e.target.value})}
+                onChange={(e) =>
+                  setFilters({ ...filters, location: e.target.value })
+                }
               >
-                {locationOptions.map(option => (
+                {locationOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
@@ -249,7 +256,7 @@ const OfferList = () => {
 
       <AnimatePresence>
         {showForm && (
-          <OfferForm 
+          <OfferForm
             onClose={() => setShowForm(false)}
             onSave={handleAddOffer}
           />
@@ -257,7 +264,7 @@ const OfferList = () => {
       </AnimatePresence>
 
       {isLoading ? (
-        <motion.div 
+        <motion.div
           className="loading-animation"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -267,21 +274,18 @@ const OfferList = () => {
               key={i}
               className="offer-skeleton"
               initial={{ opacity: 0 }}
-              animate={{ 
+              animate={{
                 opacity: 1,
-                transition: { delay: i * 0.15 }
+                transition: { delay: i * 0.15 },
               }}
             />
           ))}
         </motion.div>
       ) : (
-        <motion.div 
-          className="offers-list"
-          layout
-        >
+        <motion.div className="offers-list" layout>
           <AnimatePresence>
             {filteredOffers.length === 0 ? (
-              <motion.div 
+              <motion.div
                 className="empty-state"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -289,25 +293,25 @@ const OfferList = () => {
               >
                 <div className="empty-icon">🔍</div>
                 <h3>Aucune offre ne correspond à vos critères</h3>
-                <p>Essayez de modifier vos filtres ou créez une nouvelle offre</p>
-                <button 
+                <p>
+                  Essayez de modifier vos filtres ou créez une nouvelle offre
+                </p>
+                <button
                   className="btn-secondary"
-                  onClick={() => setFilters({
-                    status: 'all',
-                    type: 'all',
-                    location: 'all'
-                  })}
+                  onClick={() =>
+                    setFilters({
+                      status: "all",
+                      type: "all",
+                      location: "all",
+                    })
+                  }
                 >
                   Réinitialiser les filtres
                 </button>
               </motion.div>
             ) : (
               filteredOffers.map((offer, index) => (
-                <OfferItem 
-                  key={offer.id}
-                  offer={offer}
-                  index={index}
-                />
+                <OfferItem key={offer.id} offer={offer} index={index} />
               ))
             )}
           </AnimatePresence>

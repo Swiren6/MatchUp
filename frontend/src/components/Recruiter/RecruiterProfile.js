@@ -3,21 +3,21 @@ import './RecruiterProfile.css'; // Import your CSS file for styling
 
 const RecruiterProfile = () => {
   const [profile, setProfile] = useState({
-    firstName: "Sophie",
-    lastName: "Martin",
-    email: "sophie.martin@entreprise.com",
-    phone: "01 23 45 67 89",
+    firstName: "Sirine",
+    lastName: "Abdelkhalek",
+    email: "Sirine.Abdelkhalek@entreprise.com",
+    phone: "+216 23 45 67 89",
     company: "TechSolutions Inc.",
     position: "Responsable Recrutement",
     bio: "Je recrute les meilleurs talents tech pour notre entreprise.",
     skills: ["Recrutement IT", "Entretiens techniques", "Sourcing"],
-    location: "Paris, France",
+    location: "Tunis, Lac2",
     photo: "",
     github: "",
     cvLink: "",
     educations: [
       {
-        institution: "Université Paris-Dauphine",
+        institution: "Université Tunis-Dauphine",
         degree: "Master en RH",
         fieldOfStudy: "Gestion des Ressources Humaines",
         from: "2010-09-01",
@@ -36,8 +36,8 @@ const RecruiterProfile = () => {
       }
     ],
     socials: {
-      linkedin: "linkedin.com/in/sophiemartin",
-      twitter: "twitter.com/sophiemartin"
+      linkedin: "linkedin.com/in/SirineAbdelkhalek",
+      twitter: "twitter.com/SirineAbdelkhalek"
     }
   });
 
