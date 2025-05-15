@@ -5,57 +5,56 @@ const FreelancerSwipe = () => {
   const [freelancers] = useState([
     {
       id: 1,
-<<<<<<< HEAD
-      name: "Salem Ben salem",
-=======
-      name: "Salem BenSalem",
->>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
+      name: "Salem Ben Salem",
       title: "Développeur React Senior",
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop",
-      bio: "Développeur Fullstack avec 5 ans d'expérience en React et Node.js. Passionnée par les interfaces utilisateur intuitives.",
+      bio: "Développeur Fullstack avec 5 ans d'expérience en React et Node.js. Passionné par les interfaces utilisateur intuitives.",
       skills: ["React", "TypeScript", "Redux", "Node.js"],
       rate: "DT700/jour",
-<<<<<<< HEAD
       location: "Tunis, Tunisie"
     },
     {
       id: 2,
-      name: "sara ben Ahmed",
-=======
-      location: "Tunis, Tunis"
+      name: "Sara Ben Ahmed",
+      title: "Développeuse Frontend",
+      photo: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500&auto=format&fit=crop",
+      bio: "Développeuse spécialisée en interfaces utilisateur modernes avec React.",
+      skills: ["React", "HTML", "CSS", "JavaScript"],
+      rate: "DT500/jour",
+      location: "Tunis, Tunisie"
     },
     {
-      id: 2,
+      id: 3,
       name: "Safa Mathlouthi",
->>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
       title: "UX/UI Designer",
       photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&auto=format&fit=crop",
       bio: "Designer avec une spécialisation en expérience utilisateur. J'aide les startups à créer des produits digitaux mémorables.",
       skills: ["Figma", "Prototypage", "User Research", "UI Animation"],
-<<<<<<< HEAD
       rate: "DT550/jour",
       location: "Nabeul, Tunisie"
     },
     {
-      id: 3,
+      id: 4,
       name: "Yassine Gharbi",
-=======
-      rate: "DT 550/jour",
-      location: "Tunis, Tunis"
+      title: "Développeur Backend",
+      photo: "https://images.unsplash.com/photo-1603415526960-f7e0328f2447?w=500&auto=format&fit=crop",
+      bio: "Expert en Node.js et en bases de données. Je développe des API robustes et performantes.",
+      skills: ["Node.js", "Express", "MongoDB", "REST APIs"],
+      rate: "DT550/jour",
+      location: "Tunis, Tunisie"
     },
     {
-      id: 3,
+      id: 5,
       name: "Sara BenAhmed",
->>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
       title: "Data Scientist",
       photo: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=500&auto=format&fit=crop",
-      bio: "Expert en machine learning et analyse de données. Je transforme les données en insights actionnables.",
+      bio: "Experte en machine learning et analyse de données. Je transforme les données en insights actionnables.",
       skills: ["Python", "TensorFlow", "SQL", "Data Visualization"],
       rate: "DT800/jour",
       location: "Remote"
     },
     {
-      id: 4,
+      id: 6,
       name: "Inès Baccar",
       title: "Développeuse Mobile Flutter",
       photo: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop",
@@ -65,7 +64,7 @@ const FreelancerSwipe = () => {
       location: "Sfax, Tunisie"
     },
     {
-      id: 5,
+      id: 7,
       name: "Mehdi Zouari",
       title: "Ingénieur DevOps",
       photo: "https://images.unsplash.com/photo-1603415526960-f7e0328f2447?w=500&auto=format&fit=crop",
@@ -75,7 +74,7 @@ const FreelancerSwipe = () => {
       location: "Sousse, Tunisie"
     },
     {
-      id: 6,
+      id: 8,
       name: "Amira Krifa",
       title: "Spécialiste Marketing Digital",
       photo: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&auto=format&fit=crop",
@@ -152,7 +151,6 @@ const FreelancerSwipe = () => {
               <span className="location">{currentFreelancer.location}</span>
             </div>
           </div>
-          
           <div className="card-bio">
             <p>{currentFreelancer.bio}</p>
             <div className="skills-container">
@@ -162,7 +160,6 @@ const FreelancerSwipe = () => {
             </div>
           </div>
         </div>
-        
         <button 
           className="bio-toggle"
           onClick={() => setShowBio(!showBio)}
