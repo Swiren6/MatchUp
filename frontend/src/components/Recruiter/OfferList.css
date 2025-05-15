@@ -761,34 +761,41 @@
   }
 }
 /* Nouveaux styles pour les filtres */
-.filter-group {
+/* .filter-group {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+} */
+.filter-group {
+  display: flex;
+  align-items: flex-end; /* Alignement en bas pour les selects */
+  gap: 1.5rem; /* Espacement entre les filtres */
+  flex-wrap: wrap; /* Permet le retour à la ligne sur mobile */
 }
 
 .filter-selector {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  min-width: 180px; /* Largeur minimale pour tous les filtres */
 }
 
 .filter-selector label {
-  font-size: 0.8rem;
-  color: var(--text-light);
+  margin-bottom: 8px;
+  font-size: 0.9rem;
   font-weight: 500;
+  color: var(--text-light);
 }
 
 .filter-selector select {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  padding: 10px 12px;
   border: 1px solid var(--border);
-  background: white;
+  border-radius: var(--radius);
+  background-color: white;
   font-size: 0.9rem;
-  min-width: 150px;
-  cursor: pointer;
-  transition: var(--transition);
+  width: 100%;
+  box-sizing: border-box;
 }
+
 
 .filter-selector select:hover {
   border-color: var(--primary);
@@ -822,20 +829,13 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .filter-group {
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
-  }
   
-  .filter-selector select {
-    width: 100%;
-  }
   
   .offers-list {
     grid-template-columns: 1fr;
   }
 }
+
 
 
 /* Styles pour la description améliorée */
@@ -988,5 +988,16 @@
 .offer-actions {
   display: flex;
   gap: 0.5rem;
+}
+
+
+@media (max-width: 768px) {
+  .filter-group {
+    gap: 1rem;
+  }
+  
+  .filter-selector {
+    min-width: 100%;
+  }
 }
 

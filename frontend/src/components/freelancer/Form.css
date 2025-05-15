@@ -1,0 +1,36 @@
+.file-upload {
+  margin-top: 0.5rem;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-area {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.upload-area:hover {
+  border-color: var(--primary-color);
+  background-color: rgba(37, 99, 235, 0.05);
+}
+
+.browse-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.file-name {
+  display: inline-block;
+  margin-left: 0.5rem;
+  color: var(--text-light);
+}

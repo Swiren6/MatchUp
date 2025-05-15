@@ -7,6 +7,7 @@ import FreelancerProfile from '../components/freelancer/FreelanceProfile';
 import FreelancerDashboard from '../components/freelancer/FreelncerDashboard';
 import ProjectSwipe from '../components/freelancer/ProjetSwipe';
 import FreelancerMatchPage from '../components/freelancer/FreelancerMatchPage';
+import OffersPage from '../components/freelancer/OffersPage';
 const FreelancerPage = () => {
     return (
         <div className="freelancer-dashboard">
@@ -17,6 +18,7 @@ const FreelancerPage = () => {
                     <Route path="profile" element={<FreelancerProfile />} />
                     <Route path="swipe" element={<ProjectSwipe />} />
                     <Route path="/match" element={<FreelancerMatchPage />} />
+                    <Route path="offers" element={<OffersPage />} />
                     
                 </Routes>
                 <Outlet />
