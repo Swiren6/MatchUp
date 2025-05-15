@@ -5,27 +5,48 @@ const FreelancerSwipe = () => {
   const [freelancers] = useState([
     {
       id: 1,
+<<<<<<< HEAD
       name: "Salem Ben salem",
+=======
+      name: "Salem BenSalem",
+>>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
       title: "Développeur React Senior",
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop",
       bio: "Développeur Fullstack avec 5 ans d'expérience en React et Node.js. Passionnée par les interfaces utilisateur intuitives.",
       skills: ["React", "TypeScript", "Redux", "Node.js"],
       rate: "DT700/jour",
+<<<<<<< HEAD
       location: "Tunis, Tunisie"
     },
     {
       id: 2,
       name: "sara ben Ahmed",
+=======
+      location: "Tunis, Tunis"
+    },
+    {
+      id: 2,
+      name: "Safa Mathlouthi",
+>>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
       title: "UX/UI Designer",
       photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&auto=format&fit=crop",
       bio: "Designer avec une spécialisation en expérience utilisateur. J'aide les startups à créer des produits digitaux mémorables.",
       skills: ["Figma", "Prototypage", "User Research", "UI Animation"],
+<<<<<<< HEAD
       rate: "DT550/jour",
       location: "Nabeul, Tunisie"
     },
     {
       id: 3,
       name: "Yassine Gharbi",
+=======
+      rate: "DT 550/jour",
+      location: "Tunis, Tunis"
+    },
+    {
+      id: 3,
+      name: "Sara BenAhmed",
+>>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
       title: "Data Scientist",
       photo: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=500&auto=format&fit=crop",
       bio: "Expert en machine learning et analyse de données. Je transforme les données en insights actionnables.",

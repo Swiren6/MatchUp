@@ -50,12 +50,12 @@ const FreelancerProfile = () => {
         setTimeout(() => {
           setProfile({
             id: 1,
-            name: "Jean Dupont",
-            email: "jean.dupont@freelance.com",
-            phone: "+33 6 12 34 56 78",
+            name: "Sirine Abdelkhalek",
+            email: "Sirine.Abdelkhalek@freelance.com",
+            phone: "+216 22 33 44 55",
             avatar: "/avatars/freelancer1.jpg",
             title: "Développeur Fullstack React/Node",
-            location: "Paris, France",
+            location: "Tunis",
             rate: 65,
             rating: 4.7,
             completedProjects: 24,
@@ -80,7 +80,7 @@ const FreelancerProfile = () => {
               {
                 id: 1,
                 degree: "Master en Informatique",
-                institution: "Université de Paris",
+                institution: "Université Tek Up",
                 year: "2018"
               }
             ],

@@ -190,38 +190,114 @@ const OfferList = () => {
   ];
 
   return (
+<<<<<<< HEAD
     <motion.div className="dashboard-section" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+=======
+    <motion.div
+      className="dashboard-section"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+>>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
       <div className="section-header">
         <motion.h2 initial={{ x: -20 }} animate={{ x: 0 }} transition={{ delay: 0.2 }}>
           Mes offres d'emploi
+<<<<<<< HEAD
           <span className="offers-count">{filteredOffers.length}/{offers.length} offre{offers.length > 1 ? 's' : ''}</span>
+=======
+          <span className="offers-count">
+            {filteredOffers.length}/{offers.length} offre
+            {offers.length > 1 ? "s" : ""}
+          </span>
+>>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
         </motion.h2>
 
         <div className="controls">
           <div className="filter-group">
+<<<<<<< HEAD
             <motion.div className="filter-selector" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
               <label>Statut :</label>
               <select value={filters.status} onChange={(e) => setFilters({...filters, status: e.target.value})}>
                 {statusOptions.map(option => (
                   <option key={option.value} value={option.value}>{option.label}</option>
+=======
+            <motion.div
+              className="filter-selector"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <label>Statut :</label>
+              <select
+                value={filters.status}
+                onChange={(e) =>
+                  setFilters({ ...filters, status: e.target.value })
+                }
+              >
+                {statusOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+>>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
                 ))}
               </select>
             </motion.div>
 
+<<<<<<< HEAD
             <motion.div className="filter-selector" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
               <label>Type :</label>
               <select value={filters.type} onChange={(e) => setFilters({...filters, type: e.target.value})}>
                 {typeOptions.map(option => (
                   <option key={option.value} value={option.value}>{option.label}</option>
+=======
+            <motion.div
+              className="filter-selector"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              <label>Type :</label>
+              <select
+                value={filters.type}
+                onChange={(e) =>
+                  setFilters({ ...filters, type: e.target.value })
+                }
+              >
+                {typeOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+>>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
                 ))}
               </select>
             </motion.div>
 
+<<<<<<< HEAD
             <motion.div className="filter-selector" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
               <label>Localisation :</label>
               <select value={filters.location} onChange={(e) => setFilters({...filters, location: e.target.value})}>
                 {locationOptions.map(option => (
                   <option key={option.value} value={option.value}>{option.label}</option>
+=======
+            <motion.div
+              className="filter-selector"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <label>Localisation :</label>
+              <select
+                value={filters.location}
+                onChange={(e) =>
+                  setFilters({ ...filters, location: e.target.value })
+                }
+              >
+                {locationOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+>>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
                 ))}
               </select>
             </motion.div>
@@ -236,7 +312,7 @@ const OfferList = () => {
 
       <AnimatePresence>
         {showForm && (
-          <OfferForm 
+          <OfferForm
             onClose={() => setShowForm(false)}
             onSave={handleAddOffer}
           />
@@ -244,26 +320,73 @@ const OfferList = () => {
       </AnimatePresence>
 
       {isLoading ? (
+<<<<<<< HEAD
         <motion.div className="loading-animation" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           {[...Array(3)].map((_, i) => (
             <motion.div key={i} className="offer-skeleton" initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: i * 0.15 } }} />
+=======
+        <motion.div
+          className="loading-animation"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          {[...Array(3)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="offer-skeleton"
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+                transition: { delay: i * 0.15 },
+              }}
+            />
+>>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
           ))}
         </motion.div>
       ) : (
         <motion.div className="offers-list" layout>
           <AnimatePresence>
             {filteredOffers.length === 0 ? (
+<<<<<<< HEAD
               <motion.div className="empty-state" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
                 <div className="empty-icon">🔍</div>
                 <h3>Aucune offre ne correspond à vos critères</h3>
                 <p>Essayez de modifier vos filtres ou créez une nouvelle offre</p>
                 <button className="btn-secondary" onClick={() => setFilters({ status: 'all', type: 'all', location: 'all' })}>
+=======
+              <motion.div
+                className="empty-state"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <div className="empty-icon">🔍</div>
+                <h3>Aucune offre ne correspond à vos critères</h3>
+                <p>
+                  Essayez de modifier vos filtres ou créez une nouvelle offre
+                </p>
+                <button
+                  className="btn-secondary"
+                  onClick={() =>
+                    setFilters({
+                      status: "all",
+                      type: "all",
+                      location: "all",
+                    })
+                  }
+                >
+>>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
                   Réinitialiser les filtres
                 </button>
               </motion.div>
             ) : (
+<<<<<<< HEAD
               filteredOffers.map(offer => (
                 <OfferItem key={offer.id} offer={offer} />
+=======
+              filteredOffers.map((offer, index) => (
+                <OfferItem key={offer.id} offer={offer} index={index} />
+>>>>>>> 211d66160f56fb56f577718dff35a4c43ab6a6b5
               ))
             )}
           </AnimatePresence>
