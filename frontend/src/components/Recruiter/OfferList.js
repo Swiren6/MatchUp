@@ -16,17 +16,15 @@ const OfferList = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      // Simulation API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
       setOffers([
         {
           id: 1,
           title: "Développeur Frontend React",
           type: "CDI",
-          location: "Paris",
+          location: "Tunis",
           remote: true,
-          salary: "50-60K€",
+          salary: "2600 DT/mois",
           date: "15/05/2023",
           status: "published",
           candidates: 8,
@@ -38,9 +36,9 @@ const OfferList = () => {
           id: 2,
           title: "UX Designer Senior",
           type: "CDD",
-          location: "Lyon",
+          location: "Nabeul",
           remote: false,
-          salary: "45-55K€",
+          salary: "1900 DT/mois",
           date: "10/05/2023",
           status: "published",
           candidates: 5,
@@ -54,7 +52,7 @@ const OfferList = () => {
           type: "CDI",
           location: "Remote",
           remote: true,
-          salary: "55-70K€",
+          salary: "3000 DT/mois",
           date: "20/05/2023",
           status: "draft",
           candidates: 0,
@@ -66,9 +64,9 @@ const OfferList = () => {
           id: 4,
           title: "Product Manager",
           type: "CDI",
-          location: "Bordeaux",
+          location: "Bizerte",
           remote: true,
-          salary: "60-75K€",
+          salary: "2600 DT/mois",
           date: "18/05/2023",
           status: "archived",
           candidates: 12,
@@ -82,57 +80,92 @@ const OfferList = () => {
           type: "Freelance",
           location: "Remote",
           remote: true,
-          salary: "500-700€/jour",
+          salary: "180-250 TND/jour",
           date: "22/05/2023",
           status: "published",
           candidates: 3,
           description: "Mise en place de pipelines CI/CD et infrastructure cloud.",
           skills: ["AWS", "Docker", "Kubernetes"],
           urgency: "high"
+        },
+        {
+          id: 6,
+          title: "Développeur .NET",
+          type: "CDI",
+          location: "Tunis",
+          remote: false,
+          salary: "4600 DT/mois",
+          date: "10/03/2023",
+          status: "published",
+          candidates: 6,
+          description: "Développement et maintenance d'applications web avec .NET.",
+          skills: [".NET", "C#", "SQL Server"],
+          urgency: "medium"
+        },
+        {
+          id: 7,
+          title: "Testeur QA",
+          type: "Stage",
+          location: "Tunis",
+          remote: false,
+          salary: "200 DT/mois",
+          date: "05/04/2023",
+          status: "published",
+          candidates: 4,
+          description: "Stage de test logiciel avec écriture de scénarios de test.",
+          skills: ["Test", "JIRA", "Documentation"],
+          urgency: "low"
+        },
+        {
+          id: 8,
+          title: "Scrum Master",
+          type: "CDI",
+          location: "Tunis",
+          remote: true,
+          salary: "1600 DT/mois",
+          date: "12/05/2023",
+          status: "published",
+          candidates: 2,
+          description: "Encadrement des équipes agiles et suivi des sprints.",
+          skills: ["Scrum", "JIRA", "Communication"],
+          urgency: "high"
         }
       ]);
       setIsLoading(false);
     };
-
     loadData();
   }, []);
 
   const handleAddOffer = async (newOffer) => {
     setShowForm(false);
     setIsLoading(true);
-    
     await new Promise(resolve => setTimeout(resolve, 800));
-    
     setOffers(prev => [
       {
         ...newOffer,
-        id: Math.max(...prev.map(o => o.id)) + 1,
+        id: prev.length > 0 ? Math.max(...prev.map(o => o.id)) + 1 : 1,
         date: new Date().toLocaleDateString('fr-FR'),
         status: "draft",
         candidates: 0,
-        skills: newOffer.skills.split(',').map(s => s.trim()),
+        skills: typeof newOffer.skills === 'string' 
+          ? newOffer.skills.split(',').map(s => s.trim()) 
+          : Array.isArray(newOffer.skills) 
+            ? newOffer.skills 
+            : [],
         urgency: newOffer.urgency || "medium"
       },
       ...prev
     ]);
-    
     setIsLoading(false);
   };
 
   const filteredOffers = offers.filter(offer => {
-    // Filtre par statut
     if (filters.status !== 'all' && offer.status !== filters.status) return false;
-    
-    // Filtre par type de contrat
     if (filters.type !== 'all' && offer.type !== filters.type) return false;
-    
-    // Filtre par localisation
     if (filters.location !== 'all' && offer.location !== filters.location) return false;
-    
     return true;
   });
 
-  // Options pour les filtres
   const statusOptions = [
     { value: 'all', label: 'Tous statuts' },
     { value: 'published', label: 'Publiées' },
@@ -150,97 +183,51 @@ const OfferList = () => {
 
   const locationOptions = [
     { value: 'all', label: 'Toutes localisations' },
-    { value: 'Paris', label: 'Paris' },
-    { value: 'Lyon', label: 'Lyon' },
-    { value: 'Bordeaux', label: 'Bordeaux' },
+    { value: 'Tunis', label: 'Tunis' },
+    { value: 'Nabeul', label: 'Nabeul' },
+    { value: 'Bizerte', label: 'Bizerte' },
     { value: 'Remote', label: 'Full Remote' }
   ];
 
   return (
-    <motion.div 
-      className="dashboard-section"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <motion.div className="dashboard-section" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
       <div className="section-header">
-        <motion.h2
-          initial={{ x: -20 }}
-          animate={{ x: 0 }}
-          transition={{ delay: 0.2 }}
-        >
+        <motion.h2 initial={{ x: -20 }} animate={{ x: 0 }} transition={{ delay: 0.2 }}>
           Mes offres d'emploi
-          <span className="offers-count">
-            {filteredOffers.length}/{offers.length} offre{offers.length > 1 ? 's' : ''}
-          </span>
+          <span className="offers-count">{filteredOffers.length}/{offers.length} offre{offers.length > 1 ? 's' : ''}</span>
         </motion.h2>
 
         <div className="controls">
           <div className="filter-group">
-            <motion.div 
-              className="filter-selector"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
+            <motion.div className="filter-selector" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
               <label>Statut :</label>
-              <select 
-                value={filters.status}
-                onChange={(e) => setFilters({...filters, status: e.target.value})}
-              >
+              <select value={filters.status} onChange={(e) => setFilters({...filters, status: e.target.value})}>
                 {statusOptions.map(option => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
+                  <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </select>
             </motion.div>
 
-            <motion.div 
-              className="filter-selector"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
+            <motion.div className="filter-selector" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
               <label>Type :</label>
-              <select 
-                value={filters.type}
-                onChange={(e) => setFilters({...filters, type: e.target.value})}
-              >
+              <select value={filters.type} onChange={(e) => setFilters({...filters, type: e.target.value})}>
                 {typeOptions.map(option => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
+                  <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </select>
             </motion.div>
 
-            <motion.div 
-              className="filter-selector"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
+            <motion.div className="filter-selector" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
               <label>Localisation :</label>
-              <select 
-                value={filters.location}
-                onChange={(e) => setFilters({...filters, location: e.target.value})}
-              >
+              <select value={filters.location} onChange={(e) => setFilters({...filters, location: e.target.value})}>
                 {locationOptions.map(option => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
+                  <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </select>
             </motion.div>
           </div>
 
-          <motion.button
-            className="btn-primary with-icon"
-            onClick={() => setShowForm(true)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
+          <motion.button className="btn-primary with-icon" onClick={() => setShowForm(true)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <span className="icon">+</span>
             <span>Créer une offre</span>
           </motion.button>
@@ -257,57 +244,26 @@ const OfferList = () => {
       </AnimatePresence>
 
       {isLoading ? (
-        <motion.div 
-          className="loading-animation"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
+        <motion.div className="loading-animation" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           {[...Array(3)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="offer-skeleton"
-              initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: 1,
-                transition: { delay: i * 0.15 }
-              }}
-            />
+            <motion.div key={i} className="offer-skeleton" initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: i * 0.15 } }} />
           ))}
         </motion.div>
       ) : (
-        <motion.div 
-          className="offers-list"
-          layout
-        >
+        <motion.div className="offers-list" layout>
           <AnimatePresence>
             {filteredOffers.length === 0 ? (
-              <motion.div 
-                className="empty-state"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-              >
+              <motion.div className="empty-state" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
                 <div className="empty-icon">🔍</div>
                 <h3>Aucune offre ne correspond à vos critères</h3>
                 <p>Essayez de modifier vos filtres ou créez une nouvelle offre</p>
-                <button 
-                  className="btn-secondary"
-                  onClick={() => setFilters({
-                    status: 'all',
-                    type: 'all',
-                    location: 'all'
-                  })}
-                >
+                <button className="btn-secondary" onClick={() => setFilters({ status: 'all', type: 'all', location: 'all' })}>
                   Réinitialiser les filtres
                 </button>
               </motion.div>
             ) : (
-              filteredOffers.map((offer, index) => (
-                <OfferItem 
-                  key={offer.id}
-                  offer={offer}
-                  index={index}
-                />
+              filteredOffers.map(offer => (
+                <OfferItem key={offer.id} offer={offer} />
               ))
             )}
           </AnimatePresence>

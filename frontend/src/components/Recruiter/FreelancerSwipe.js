@@ -5,33 +5,63 @@ const FreelancerSwipe = () => {
   const [freelancers] = useState([
     {
       id: 1,
-      name: "Alex Dubois",
+      name: "Salem Ben salem",
       title: "Développeur React Senior",
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop",
-      bio: "Développeur Fullstack avec 5 ans d'expérience en React et Node.js. Passionné par les interfaces utilisateur intuitives.",
+      bio: "Développeur Fullstack avec 5 ans d'expérience en React et Node.js. Passionnée par les interfaces utilisateur intuitives.",
       skills: ["React", "TypeScript", "Redux", "Node.js"],
-      rate: "€700/jour",
-      location: "Paris, France"
+      rate: "DT700/jour",
+      location: "Tunis, Tunisie"
     },
     {
       id: 2,
-      name: "Sophie Lambert",
+      name: "sara ben Ahmed",
       title: "UX/UI Designer",
       photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&auto=format&fit=crop",
       bio: "Designer avec une spécialisation en expérience utilisateur. J'aide les startups à créer des produits digitaux mémorables.",
       skills: ["Figma", "Prototypage", "User Research", "UI Animation"],
-      rate: "€550/jour",
-      location: "Lyon, France"
+      rate: "DT550/jour",
+      location: "Nabeul, Tunisie"
     },
     {
       id: 3,
-      name: "Thomas Martin",
+      name: "Yassine Gharbi",
       title: "Data Scientist",
       photo: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=500&auto=format&fit=crop",
       bio: "Expert en machine learning et analyse de données. Je transforme les données en insights actionnables.",
       skills: ["Python", "TensorFlow", "SQL", "Data Visualization"],
-      rate: "€800/jour",
+      rate: "DT800/jour",
       location: "Remote"
+    },
+    {
+      id: 4,
+      name: "Inès Baccar",
+      title: "Développeuse Mobile Flutter",
+      photo: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop",
+      bio: "Spécialiste en développement d'applications mobiles cross-platform. Forte expérience sur Flutter et Firebase.",
+      skills: ["Flutter", "Dart", "Firebase", "UX mobile"],
+      rate: "DT600/jour",
+      location: "Sfax, Tunisie"
+    },
+    {
+      id: 5,
+      name: "Mehdi Zouari",
+      title: "Ingénieur DevOps",
+      photo: "https://images.unsplash.com/photo-1603415526960-f7e0328f2447?w=500&auto=format&fit=crop",
+      bio: "J'automatise les déploiements et gère les infrastructures cloud. Expert CI/CD et monitoring.",
+      skills: ["Docker", "Kubernetes", "CI/CD", "AWS"],
+      rate: "DT750/jour",
+      location: "Sousse, Tunisie"
+    },
+    {
+      id: 6,
+      name: "Amira Krifa",
+      title: "Spécialiste Marketing Digital",
+      photo: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&auto=format&fit=crop",
+      bio: "Experte en stratégie marketing, publicité en ligne et SEO. J'aide les entreprises à se démarquer sur le web.",
+      skills: ["SEO", "Google Ads", "Content Strategy", "Social Media"],
+      rate: "DT500/jour",
+      location: "Ariana, Tunisie"
     }
   ]);
 

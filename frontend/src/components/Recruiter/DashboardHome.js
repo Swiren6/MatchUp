@@ -18,7 +18,7 @@ const DashboardHome = () => {
   ];
 
   const messages = [
-    { id: 1, sender: "Jean Martin", subject: "Demande d'information sur l'offre UI/UX", time: "Il y a 1h" },
+    { id: 1, sender: "Jamilla ben ammar", subject: "Demande d'information sur l'offre UI/UX", time: "Il y a 1h" },
     { id: 2, sender: "Fatima Ben Ali", subject: "Relance candidature Backend", time: "Hier" },
     { id: 3, sender: "HR Team", subject: "Planification des entretiens de la semaine", time: "Il y a 3 jours" }
   ];
@@ -49,7 +49,7 @@ const DashboardHome = () => {
       suggestions: ["statistiques", "offres", "candidatures"]
     },
     "default": {
-      text: "Je n'ai pas compris. Voici ce que je peux faire :",
+      text: "Voici ce que je peux faire :",
       suggestions: ["statistiques", "offres", "aide"]
     }
   };

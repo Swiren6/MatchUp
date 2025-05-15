@@ -836,3 +836,157 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Styles pour la description améliorée */
+.offer-description {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #4a6cf7;
+}
+
+.offer-description h4 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: #2d3748;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.description-content {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.description-content p {
+  margin: 0.5rem 0;
+}
+
+/* Styles pour les compétences */
+.offer-skills {
+  margin: 1rem 0;
+}
+
+.offer-skills h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  background-color: #e2e8f0;
+  color: #2d3748;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Autres styles améliorés */
+.offer-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.offer-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.offer-card.high {
+  border-top: 3px solid #f56565;
+}
+
+.offer-card.medium {
+  border-top: 3px solid #f6ad55;
+}
+
+.offer-card.low {
+  border-top: 3px solid #68d391;
+}
+
+.offer-header {
+  margin-bottom: 1rem;
+}
+
+.offer-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.offer-title-wrapper h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #1a202c;
+}
+
+.offer-status {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.offer-status.published {
+  background-color: #c6f6d5;
+  color: #22543d;
+}
+
+.offer-status.draft {
+  background-color: #feebc8;
+  color: #7b341e;
+}
+
+.offer-status.archived {
+  background-color: #e2e8f0;
+  color: #2d3748;
+}
+
+.offer-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.offer-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.offer-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #edf2f7;
+  font-size: 0.85rem;
+  color: #718096;
+}
+
+.offer-date {
+  display: flex;
+  gap: 1rem;
+}
+
+.offer-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
