@@ -20,6 +20,7 @@ const FreelancerPage = () => {
                     <Route path="/match" element={<FreelancerMatchPage />} />
                     <Route path="offers" element={<OffersPage />} />
                     
+                    
                 </Routes>
                 <Outlet />
             </main>

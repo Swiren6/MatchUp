@@ -109,13 +109,12 @@ const HighlightRow = styled(TableRow)(({ theme }) => ({
   }
 }));
 
-// =============== Données ===============
 const usersData = [
   {
     id: 1,
-    name: 'Jean Dupont',
-    email: 'jean.dupont@example.com',
-    role: 'Développeur Fullstack',
+    name: 'Sarra Amine',
+    email: 'sarra.amine@example.tn',
+    role: 'Développeuse Fullstack',
     status: 'active',
     lastActive: '2023-05-15',
     skills: ['React', 'Node.js', 'TypeScript', 'GraphQL'],
@@ -125,11 +124,12 @@ const usersData = [
     performance: 4.8,
     joinDate: '2021-03-10',
     premium: true
+    // location: 'Tunis, Tunisie'
   },
   {
     id: 2,
-    name: 'Marie Lambert',
-    email: 'marie.lambert@example.com',
+    name: 'Akrem Ben Salah',
+    email: 'amine.bensalah@example.tn',
     role: 'Designer UX/UI',
     status: 'active',
     lastActive: '2023-06-20',
@@ -140,12 +140,13 @@ const usersData = [
     performance: 4.5,
     joinDate: '2020-11-15',
     premium: false
+    // location: 'Sfax, Tunisie'
   },
   {
     id: 3,
-    name: 'Thomas Martin',
-    email: 'thomas.martin@example.com',
-    role: 'DevOps Engineer',
+    name: 'Khaled Mhiri',
+    email: 'khaled.mhiri@example.tn',
+    role: 'Ingénieur DevOps',
     status: 'active',
     lastActive: '2023-06-18',
     skills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD'],
@@ -155,26 +156,28 @@ const usersData = [
     performance: 4.2,
     joinDate: '2022-01-05',
     premium: true
+    // location: 'Sousse, Tunisie'
   },
   {
     id: 4,
-    name: 'Sophie Dubois',
-    email: 'sophie.dubois@example.com',
-    role: 'Product Manager',
+    name: 'Nadia Trabelsi',
+    email: 'nadia.trabelsi@example.tn',
+    role: 'Chef de Produit',
     status: 'inactive',
     lastActive: '2023-04-10',
-    skills: ['Agile', 'Scrum', 'Product Strategy', 'Roadmapping'],
+    skills: ['Agile', 'Scrum', 'Stratégie Produit', 'Roadmapping'],
     avatar: '/avatars/4.jpg',
     verified: true,
     projects: 5,
     performance: 3.9,
     joinDate: '2021-08-22',
     premium: false
+    // location: 'Gabès, Tunisie'
   },
   {
     id: 5,
-    name: 'Alexandre Petit',
-    email: 'alex.petit@example.com',
+    name: 'Oussama Ben Youssef',
+    email: 'oussama.by@example.tn',
     role: 'Data Scientist',
     status: 'active',
     lastActive: '2023-06-22',
@@ -185,27 +188,29 @@ const usersData = [
     performance: 4.7,
     joinDate: '2022-03-14',
     premium: true
+    // location: 'Kairouan, Tunisie'
   },
   {
     id: 6,
-    name: 'Élodie Rousseau',
-    email: 'elodie.r@example.com',
-    role: 'Frontend Developer',
+    name: 'Leila Gharbi',
+    email: 'leila.gharbi@example.tn',
+    role: 'Développeuse Frontend',
     status: 'active',
     lastActive: '2023-06-21',
-    skills: ['React', 'Vue.js', 'CSS-in-JS', 'Accessibility'],
+    skills: ['React', 'Vue.js', 'CSS-in-JS', 'Accessibilité'],
     avatar: '/avatars/6.jpg',
     verified: false,
     projects: 9,
     performance: 4.3,
     joinDate: '2021-05-30',
     premium: false
+    // location: 'Bizerte, Tunisie'
   },
   {
     id: 7,
-    name: 'Nicolas Lefevre',
-    email: 'nico.lefevre@example.com',
-    role: 'Backend Developer',
+    name: 'Firas Mansour',
+    email: 'firas.mansour@example.tn',
+    role: 'Développeur Backend',
     status: 'inactive',
     lastActive: '2023-03-15',
     skills: ['Java', 'Spring Boot', 'Microservices', 'SQL'],
@@ -215,12 +220,13 @@ const usersData = [
     performance: 3.8,
     joinDate: '2020-09-12',
     premium: false
+    // location: 'Monastir, Tunisie'
   },
   {
     id: 8,
-    name: 'Camille Bernard',
-    email: 'camille.b@example.com',
-    role: 'QA Engineer',
+    name: 'Sara Jaziri',
+    email: 'sara.jaziri@example.tn',
+    role: 'Ingénieure QA',
     status: 'active',
     lastActive: '2023-06-19',
     skills: ['Automated Testing', 'Selenium', 'Jest', 'Cypress'],
@@ -230,12 +236,13 @@ const usersData = [
     performance: 4.6,
     joinDate: '2022-02-28',
     premium: true
+    // location: 'Mahdia, Tunisie'
   },
   {
     id: 9,
-    name: 'Lucas Moreau',
-    email: 'lucas.moreau@example.com',
-    role: 'Mobile Developer',
+    name: 'Walid Hachicha',
+    email: 'walid.hachicha@example.tn',
+    role: 'Développeur Mobile',
     status: 'active',
     lastActive: '2023-06-17',
     skills: ['React Native', 'Flutter', 'iOS', 'Android'],
@@ -245,23 +252,29 @@ const usersData = [
     performance: 4.1,
     joinDate: '2021-11-03',
     premium: false
+    // location: 'Sidi Bouzid, Tunisie'
   },
   {
     id: 10,
-    name: 'Amélie Girard',
-    email: 'amelie.g@example.com',
-    role: 'Technical Writer',
+    name: 'Mouna Kallel',
+    email: 'mouna.kallel@example.tn',
+    role: 'Rédactrice Technique',
     status: 'inactive',
     lastActive: '2023-01-25',
-    skills: ['Documentation', 'Markdown', 'API Guides', 'Technical Communication'],
+    skills: ['Documentation', 'Markdown', 'Guides API', 'Communication Technique'],
     avatar: '/avatars/10.jpg',
     verified: true,
     projects: 4,
     performance: 3.7,
     joinDate: '2020-12-10',
     premium: false
+    // location: 'Kef, Tunisie'
   }
 ];
+
+
+
+
 // =============== Composants ===============
 const PerformanceIndicator = ({ value }) => {
   const theme = useTheme();
@@ -392,24 +405,7 @@ const UsersDashboard = () => {
           Tableau de bord Premium
         </Typography>
         
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<AddIcon />}
-          sx={{ 
-            borderRadius: '12px',
-            px: 3,
-            py: 1,
-            textTransform: 'none',
-            fontWeight: 600,
-            boxShadow: '0 4px 14px rgba(0,0,0,0.1)',
-            '&:hover': {
-              boxShadow: '0 6px 20px rgba(0,0,0,0.15)'
-            }
-          }}
-        >
-          Nouvel utilisateur
-        </Button>
+        
       </Box>
 
       {/* Barre de filtres */}

@@ -80,24 +80,24 @@ const mockOffers = [
     id: 1,
     title: "Développeur React Senior",
     description: "Nous recherchons un développeur React expérimenté pour notre équipe frontend. Mission longue durée avec possibilité de télétravail.",
-    location: "Paris",
-    budget: "70-80K",
+    location: "Tunis",
+    budget: "230-260K TND",
     skills: ["React", "Node.js", "TypeScript", "Redux"],
     status: "Active",
     recruiter: {
       id: 101,
-      name: "TechCorp",
-      email: "recrutement@techcorp.com",
-      avatar: "/recruiters/techcorp.jpg"
+      name: "InnoTech",
+      email: "rh@innotech.tn",
+      avatar: "/recruiters/innotech.jpg"
     },
     postulations: [
       {
         freelancer: {
-          id: 201,
-          name: "Jean Dupont",
-          email: "jean.dupont@example.com",
+          id: 1,
+          name: "Amine Ben Ali",
+          email: "amine.benali@example.com",
           skills: ["React", "Node.js", "TypeScript"],
-          avatar: "/freelancers/201.jpg",
+          avatar: "/avatars/1.jpg",
           rating: 4.8
         },
         date: "2023-05-15",
@@ -105,9 +105,9 @@ const mockOffers = [
       },
       {
         freelancer: {
-          id: 202,
-          name: "Marie Martin",
-          email: "marie.martin@example.com",
+          id: 11,
+          name: "Nour Gharsalli",
+          email: "nour.gh@example.com",
           skills: ["React", "GraphQL", "Jest"],
           avatar: "/freelancers/202.jpg",
           rating: 4.5
@@ -121,21 +121,94 @@ const mockOffers = [
   {
     id: 2,
     title: "UX/UI Designer",
-    description: "Recherche d'un designer UX/UI pour refonte complète de notre application mobile.",
-    location: "Remote",
-    budget: "60-70K",
+    description: "Recherche d'un designer UX/UI pour la refonte complète de notre application mobile. Mission freelance de 3 mois renouvelable.",
+    location: "Sfax",
+    budget: "200-230K TND",
     skills: ["Figma", "Adobe XD", "UI Design", "Prototypage"],
     status: "Active",
     recruiter: {
       id: 102,
-      name: "DesignCo",
-      email: "contact@designco.com",
-      avatar: "/recruiters/designco.jpg"
+      name: "Designify",
+      email: "contact@designify.tn",
+      avatar: "/recruiters/designify.jpg"
+    },
+    postulations: [
+      {
+        freelancer: {
+          id: 2,
+          name: "Sarra Khemiri",
+          email: "sarra.k@example.com",
+          skills: ["Figma", "Adobe XD", "User Research"],
+          avatar: "/avatars/2.jpg",
+          rating: 4.5
+        },
+        date: "2023-06-05",
+        status: "Acceptée"
+      },
+      {
+        freelancer: {
+          id: 4,
+          name: "Yasmine Trabelsi",
+          email: "yas.trabelsi@example.com",
+          skills: ["Scrum", "Product Strategy"],
+          avatar: "/avatars/4.jpg",
+          rating: 3.9
+        },
+        date: "2023-06-06",
+        status: "Refusée"
+      }
+    ],
+    createdAt: "2023-06-01"
+  },
+  {
+    id: 3,
+    title: "Ingénieur DevOps AWS",
+    description: "Startup basée à Sousse cherche un ingénieur DevOps pour automatiser et gérer les infrastructures cloud.",
+    location: "Sousse",
+    budget: "250-270K TND",
+    skills: ["AWS", "Docker", "Kubernetes", "CI/CD"],
+    status: "Active",
+    recruiter: {
+      id: 103,
+      name: "CloudWorks",
+      email: "jobs@cloudworks.tn",
+      avatar: "/recruiters/cloudworks.jpg"
+    },
+    postulations: [
+      {
+        freelancer: {
+          id: 3,
+          name: "Mohamed Ali Jaziri",
+          email: "ma.jaziri@example.com",
+          skills: ["AWS", "Kubernetes", "CI/CD"],
+          avatar: "/avatars/3.jpg",
+          rating: 4.2
+        },
+        date: "2023-06-10",
+        status: "En attente"
+      }
+    ],
+    createdAt: "2023-06-08"
+  },
+  {
+    id: 4,
+    title: "Data Scientist Junior",
+    description: "Société basée à Nabeul recherche un data scientist junior pour analyser les données clients et améliorer les algorithmes prédictifs.",
+    location: "Nabeul",
+    budget: "180-200K TND",
+    skills: ["Python", "Pandas", "Machine Learning", "DataViz"],
+    status: "Active",
+    recruiter: {
+      id: 104,
+      name: "DataBoost",
+      email: "talents@databoost.tn",
+      avatar: "/recruiters/databoost.jpg"
     },
     postulations: [],
-    createdAt: "2023-06-01"
+    createdAt: "2023-06-15"
   }
 ];
+
 
 const OffersPage = () => {
   const [offers, setOffers] = useState([]);
@@ -368,26 +441,7 @@ const OffersPage = () => {
             </Select>
           </FormControl>
 
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            onClick={() => handleOpenForm()}
-            sx={{
-              borderRadius: '8px',
-              px: 3,
-              textTransform: 'none',
-              fontWeight: 600,
-              boxShadow: '0 2px 10px rgba(108, 92, 231, 0.3)',
-              '&:hover': {
-                boxShadow: '0 4px 14px rgba(108, 92, 231, 0.4)',
-                transform: 'translateY(-1px)'
-              },
-              transition: 'all 0.3s ease'
-            }}
-          >
-            Nouvelle offre
-          </Button>
+         
         </Box>
       </Box>
 
@@ -446,7 +500,7 @@ const OffersPage = () => {
                     </TableCell>
                     <TableCell>
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <EuroIcon fontSize="small" sx={{ mr: 1, color: 'text.secondary' }} />
+                        
                         {offer.budget}
                       </Box>
                     </TableCell>
@@ -860,9 +914,7 @@ const OffersPage = () => {
                   value={formData.budget}
                   onChange={handleFormChange}
                   variant="outlined"
-                  InputProps={{
-                    startAdornment: <EuroIcon sx={{ color: 'action.active', mr: 1 }} />
-                  }}
+                  
                   sx={{
                     '& .MuiOutlinedInput-root': {
                       borderRadius: '8px'

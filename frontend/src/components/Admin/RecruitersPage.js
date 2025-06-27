@@ -112,29 +112,28 @@ const HighlightRow = styled(TableRow)(({ theme }) => ({
   }
 }));
 
-// =============== Données adaptées aux recruteurs ===============
 const candidatesData = [
   {
     id: 1,
-    name: 'Jean Dupont',
-    email: 'jean.dupont@example.com',
-    position: 'Développeur Fullstack',
+    name: 'Sarra Amine',
+    email: 'sarra.amine@example.com',
+    position: 'Développeuse Fullstack',
     status: 'disponible',
     lastUpdate: '2023-06-15',
     skills: ['React', 'Node.js', 'TypeScript', 'GraphQL'],
     avatar: '/avatars/1.jpg',
     verified: true,
     experience: 5,
-    location: 'Paris, France',
+    location: 'Tunis, Tunisie',
     education: "Master en Informatique",
-    salaryExpectation: '60-70k',
+    salaryExpectation: '18000-21000 TND',
     noticePeriod: '1 mois',
     lastActive: 'Aujourd\'hui'
   },
   {
     id: 2,
-    name: 'Marie Lambert',
-    email: 'marie.lambert@example.com',
+    name: 'Amine Ben Ali',
+    email: 'amine.benali@example.com',
     position: 'Designer UX/UI',
     status: 'en recherche',
     lastUpdate: '2023-06-20',
@@ -142,33 +141,33 @@ const candidatesData = [
     avatar: '/avatars/2.jpg',
     verified: true,
     experience: 3,
-    location: 'Lyon, France',
-    education: "Bachelor en Design",
-    salaryExpectation: '45-55k',
+    location: 'Sfax, Tunisie',
+    education: "Licence en Design",
+    salaryExpectation: '13500-16500 TND',
     noticePeriod: '2 semaines',
     lastActive: 'Hier'
   },
   {
     id: 3,
-    name: 'Thomas Martin',
-    email: 'thomas.martin@example.com',
-    position: 'DevOps Engineer',
+    name: 'Khaled Trabelsi',
+    email: 'khaled.trabelsi@example.com',
+    position: 'Ingénieur DevOps',
     status: 'disponible',
     lastUpdate: '2023-06-18',
     skills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD'],
     avatar: '/avatars/3.jpg',
     verified: false,
     experience: 4,
-    location: 'Toulouse, France',
+    location: 'Sousse, Tunisie',
     education: "Ingénieur Informatique",
-    salaryExpectation: '65-75k',
+    salaryExpectation: '19500-22500 TND',
     noticePeriod: '3 semaines',
     lastActive: 'Il y a 2 jours'
   },
   {
     id: 4,
-    name: 'Sophie Dubois',
-    email: 'sophie.dubois@example.com',
+    name: 'Sonia Ben Jemia',
+    email: 'sonia.benj@example.com',
     position: 'Product Manager',
     status: 'en poste',
     lastUpdate: '2023-04-10',
@@ -176,16 +175,16 @@ const candidatesData = [
     avatar: '/avatars/4.jpg',
     verified: true,
     experience: 7,
-    location: 'Bordeaux, France',
+    location: 'Gabès, Tunisie',
     education: "MBA",
-    salaryExpectation: '80-90k',
+    salaryExpectation: '24000-27000 TND',
     noticePeriod: '2 mois',
     lastActive: 'Il y a 1 semaine'
   },
   {
     id: 5,
-    name: 'Alexandre Petit',
-    email: 'alex.petit@example.com',
+    name: 'Amira Jaziri',
+    email: 'amira.jaziri@example.com',
     position: 'Data Scientist',
     status: 'disponible',
     lastUpdate: '2023-06-22',
@@ -193,98 +192,99 @@ const candidatesData = [
     avatar: '/avatars/5.jpg',
     verified: true,
     experience: 4,
-    location: 'Nantes, France',
+    location: 'Bizerte, Tunisie',
     education: "PhD en Data Science",
-    salaryExpectation: '70-85k',
+    salaryExpectation: '21000-25500 TND',
     noticePeriod: '1 mois',
     lastActive: 'Aujourd\'hui'
   },
   {
     id: 6,
-    name: 'Élodie Rousseau',
-    email: 'elodie.r@example.com',
-    position: 'Frontend Developer',
+    name: 'Hatem Kacem',
+    email: 'hatem.kacem@example.com',
+    position: 'Développeur Frontend',
     status: 'en recherche',
     lastUpdate: '2023-06-21',
-    skills: ['React', 'Vue.js', 'CSS-in-JS', 'Accessibility'],
+    skills: ['React', 'Vue.js', 'CSS-in-JS', 'Accessibilité'],
     avatar: '/avatars/6.jpg',
     verified: false,
     experience: 2,
-    location: 'Lille, France',
+    location: 'Monastir, Tunisie',
     education: "Licence en Informatique",
-    salaryExpectation: '40-50k',
+    salaryExpectation: '12000-15000 TND',
     noticePeriod: 'Immédiat',
     lastActive: 'Hier'
   },
   {
     id: 7,
-    name: 'Nicolas Lefevre',
-    email: 'nico.lefevre@example.com',
-    position: 'Backend Developer',
+    name: 'Nizar Ayadi',
+    email: 'nizar.ayadi@example.com',
+    position: 'Développeur Backend',
     status: 'en poste',
     lastUpdate: '2023-03-15',
     skills: ['Java', 'Spring Boot', 'Microservices', 'SQL'],
     avatar: '/avatars/7.jpg',
     verified: true,
     experience: 6,
-    location: 'Marseille, France',
+    location: 'Kairouan, Tunisie',
     education: "Master en Génie Logiciel",
-    salaryExpectation: '65-75k',
+    salaryExpectation: '19500-22500 TND',
     noticePeriod: '1 mois',
     lastActive: 'Il y a 3 jours'
   },
   {
     id: 8,
-    name: 'Camille Bernard',
-    email: 'camille.b@example.com',
-    position: 'QA Engineer',
+    name: 'Ines Mansouri',
+    email: 'ines.mansouri@example.com',
+    position: 'Ingénieure QA',
     status: 'disponible',
     lastUpdate: '2023-06-19',
-    skills: ['Automated Testing', 'Selenium', 'Jest', 'Cypress'],
+    skills: ['Tests automatisés', 'Selenium', 'Jest', 'Cypress'],
     avatar: '/avatars/8.jpg',
     verified: true,
     experience: 3,
-    location: 'Strasbourg, France',
+    location: 'Tataouine, Tunisie',
     education: "Master en Qualité Logicielle",
-    salaryExpectation: '45-55k',
+    salaryExpectation: '13500-16500 TND',
     noticePeriod: '2 semaines',
     lastActive: 'Il y a 2 jours'
   },
   {
     id: 9,
-    name: 'Lucas Moreau',
-    email: 'lucas.moreau@example.com',
-    position: 'Mobile Developer',
+    name: 'Walid Gharbi',
+    email: 'walid.gharbi@example.com',
+    position: 'Développeur Mobile',
     status: 'en recherche',
     lastUpdate: '2023-06-17',
     skills: ['React Native', 'Flutter', 'iOS', 'Android'],
     avatar: '/avatars/9.jpg',
     verified: false,
     experience: 3,
-    location: 'Nice, France',
+    location: 'Sfax, Tunisie',
     education: "Licence Professionnelle",
-    salaryExpectation: '50-60k',
+    salaryExpectation: '15000-18000 TND',
     noticePeriod: '1 mois',
     lastActive: 'Il y a 3 jours'
   },
   {
     id: 10,
-    name: 'Amélie Girard',
-    email: 'amelie.g@example.com',
+    name: 'Safa Khelifi',
+    email: 'safa.khelifi@example.com',
     position: 'Technical Writer',
     status: 'en poste',
     lastUpdate: '2023-01-25',
-    skills: ['Documentation', 'Markdown', 'API Guides', 'Technical Communication'],
+    skills: ['Documentation', 'Markdown', 'Guides API', 'Communication Technique'],
     avatar: '/avatars/10.jpg',
     verified: true,
     experience: 5,
-    location: 'Rennes, France',
+    location: 'Tunis, Tunisie',
     education: "Master en Communication Technique",
-    salaryExpectation: '55-65k',
+    salaryExpectation: '16500-19500 TND',
     noticePeriod: '2 mois',
     lastActive: 'Il y a 1 semaine'
   }
 ];
+
 
 // =============== Composants ===============
 const MatchIndicator = ({ value }) => {
@@ -440,24 +440,7 @@ const RecruitersDashboard = () => {
           Tableau de bord Recruteur
         </Typography>
         
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<AddIcon />}
-          sx={{ 
-            borderRadius: '12px',
-            px: 3,
-            py: 1,
-            textTransform: 'none',
-            fontWeight: 600,
-            boxShadow: '0 4px 14px rgba(0,0,0,0.1)',
-            '&:hover': {
-              boxShadow: '0 6px 20px rgba(0,0,0,0.15)'
-            }
-          }}
-        >
-          Nouvelle offre
-        </Button>
+       
       </Box>
 
       {/* Barre de filtres */}

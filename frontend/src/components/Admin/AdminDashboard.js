@@ -36,12 +36,7 @@ const AdminDashboard = () => {
     }
   ];
 
-  const quickActions = [
-    { label: "Créer une offre", icon: "➕", action: "create-offer" },
-    { label: "Vérifier les nouveaux profils", icon: "👤", action: "verify-profiles" },
-    { label: "Générer un rapport", icon: "📄", action: "generate-report" },
-    { label: "Paramètres système", icon: "⚙️", action: "system-settings" }
-  ];
+  
 
   const recentActivities = [
     { type: "offer", title: "Nouvelle offre créée", description: "Offre pour Développeur React chez TechCorp", time: "10 min ago" },
@@ -108,21 +103,7 @@ const AdminDashboard = () => {
           </div>
         </section>
 
-        <section className="quick-actions-section">
-          <h2>Actions Rapides</h2>
-          <div className="quick-actions-grid">
-            {quickActions.map((action, index) => (
-              <button
-                key={index}
-                className="quick-action-btn"
-                onClick={() => handleNavigation(action.action)}
-              >
-                <span>{action.icon}</span>
-                <span>{action.label}</span>
-              </button>
-            ))}
-          </div>
-        </section>
+        
 
         <section className="recent-activities-section">
           <h2>Activités Récentes</h2>
